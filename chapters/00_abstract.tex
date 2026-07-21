@@ -1,0 +1,19 @@
+\chapter*{摘要}
+\addcontentsline{toc}{chapter}{摘要}
+医学图像检测与分割是医学人工智能研究中的基础任务，也是数字病理分析、疗效评估和临床辅助决策的重要前提。然而，医学场景中的高质量像素级或实例级标注获取成本高、跨中心数据分布差异大、目标类别描述困难等问题，长期制约了相关方法的可扩展性与泛化能力。围绕上述瓶颈，本文以“尽量减少对昂贵标注的依赖，同时增强模型在开放类别与跨域场景中的泛化能力”为总体目标，系统研究了无监督与弱监督条件下的医学图像检测、分割及数字病理分析方法。
+
+本文首先面向细胞核实例分割任务，研究图像级监督到实例级结果之间的桥接问题，提出循环学习框架，通过前端弱监督定位与后端实例级优化的闭环交互，实现从粗粒度图像标签到精细实例掩码的逐步逼近。随后，本文将研究视角扩展到视觉语言预训练模型，提出基于自动属性提示的零样本细胞核检测方法，通过自动构造医学属性描述并结合自训练机制，降低对人工检测标注和手工 prompt 设计的依赖。在此基础上，针对纯文本提示难以充分表达细粒度视觉差异的问题，本文进一步提出视觉文本化方法，将少量图像示例映射到语言空间，以图像提示增强开放词汇检测与跨域感知能力。最后，本文将前述识别能力迁移到临床问题中，构建面向肺鳞癌新辅助免疫化疗后疗效评估的数字病理分析框架，联合量化残余肿瘤负荷和肿瘤周围免疫细胞密度，为预后分析提供辅助信息。
+
+从研究主线看，本文的四项工作构成了较为清晰的演进脉络：首先解决弱监督条件下学习信号不足的问题；进一步借助视觉语言预训练应对无检测标注和未见类别问题；再通过图像提示学习提升模型对跨域和难描述目标的感知能力；最终将方法落地到具有临床解释价值的病理分析任务中。相关研究表明，视觉语言预训练与提示学习为降低医学图像任务标注成本、提升开放场景泛化能力提供了一条具有潜力的技术路线。
+
+\noindent\textbf{关键词：} 医学图像分析；细胞核检测；实例分割；视觉语言预训练；提示学习；数字病理
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+Medical image detection and segmentation are fundamental tasks in medical artificial intelligence and serve as essential prerequisites for digital pathology analysis, treatment assessment, and clinical decision support. However, progress in this area is constrained by the high cost of dense annotation, severe domain shifts across institutions and staining protocols, and the difficulty of describing fine-grained medical targets using simple category labels. To address these challenges, this thesis studies unsupervised and weakly supervised medical image detection, segmentation, and digital pathology analysis with the overarching goal of reducing annotation dependence while improving generalization under open-vocabulary and cross-domain settings.
+
+First, this thesis investigates how image-level supervision can be bridged to instance-level nuclei segmentation. A cyclic learning framework is developed to couple weak localization and instance segmentation in a closed loop, enabling coarse image-level supervision to gradually evolve into fine-grained instance masks. Second, the thesis extends the study to vision-language pre-trained models and proposes a zero-shot nuclei detection framework based on automatic attribute prompting. By automatically constructing attribute-aware prompts and combining them with self-training, the framework reduces dependence on manual detection labels and hand-crafted medical prompts. Third, to overcome the limitation of purely textual prompts in representing subtle visual differences, a visual textualization framework is proposed, which maps a small number of image exemplars into the language space and enables image-prompted detection and segmentation. Finally, the developed recognition capability is applied to a clinically oriented digital pathology problem, namely AI-based assessment of tumor regression and peritumoral immune cell density for prognosis analysis in lung squamous cell carcinoma after neoadjuvant immunochemotherapy.
+
+Taken together, the four studies form a coherent research trajectory: from weakly supervised segmentation, to zero-shot detection, to image-prompted open-vocabulary perception, and finally to clinically interpretable digital pathology analysis. The results suggest that vision-language pre-training and prompt learning provide a promising pathway for reducing annotation cost and improving generalization in medical image understanding.
+
+\noindent\textbf{Key Words:} medical image analysis; nuclei detection; instance segmentation; vision-language pre-training; prompt learning; digital pathology

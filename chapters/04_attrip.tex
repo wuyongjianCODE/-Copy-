@@ -1,0 +1,224 @@
+\chapter{结合自动属性提示与自训练知识蒸馏（SKD）的零样本细胞核检测}
+
+\section{研究背景与问题提出}
+在数字病理分析中，细胞核检测是最基础也最关键的任务之一，其结果直接影响后续的细胞计数、空间组织学分析、肿瘤分级与预后评估等流程。尽管近年来全监督方法在多个数据集上取得了优异性能，但密集细胞核的逐实例标注成本极高，且容易引入主观误差。因此，如何在\textbf{无标注}或\textbf{弱标注}条件下实现可靠的细胞核检测，是一个具有重要临床价值的研究问题。
+
+大规模视觉语言预训练模型（Visual-Language Pre-trained Models, VLPMs）通过海量互联网图文对学习到对齐的视觉与文本语义空间，在开放词汇检测等任务中展现出强大的零样本迁移能力。然而，病理图像与自然图像存在显著域差异：医学名词在预训练语料中覆盖不足，且细胞核的判别依赖形状、颜色深浅等细粒度属性。直接使用“nuclei”等名词提示往往难以驱动目标级 VLPM（如 GLIP\cite{li2022grounded}）稳定定位细胞核。
+
+针对上述问题，本章提出一种\textbf{自动提示（auto-prompting）}框架 AttriPrompter：先从无标注病理图像中自动生成形状/颜色属性，再通过同义与“程度（degree）”增强扩展描述粒度，最后按图文相关性对提示序列排序并输入 GLIP 完成初始零样本检测；进一步地，针对核密集导致的漏检与重叠问题，引入\textbf{自训练知识蒸馏（Self-trained Knowledge Distillation, SKD）}，以 GLIP 伪标签驱动检测器迭代提升。
+
+\section{预备知识：视觉语言对齐与 GLIP}
+VLPMs 通常利用大规模图文对 $\{(x,t)\}$ 进行对比学习，在共享语义空间中对齐图像编码器 $E_{\mathcal{V}}$ 与文本编码器 $E_{\mathcal{T}}$。其典型损失可形式化为：
+\begin{equation}
+\label{eq:attrip_contrastive}
+\mathcal{L}_c=-\sum_{i=1}^K \log \frac{\exp \left(\cos \left( E_{\mathcal{V}}\left(x_i\right) \cdot E_{\mathcal{T}}\left(t_i\right)\right) \right)}{\sum_{j=1}^K \exp \left(\cos \left(E_{\mathcal{V}}\left(x_i\right) \cdot E_{\mathcal{T}}\left(t_j\right)\right)\right)},
+\end{equation}
+其中 $K$ 为 batch size，$\cos(\cdot)$ 表示余弦相似度。
+
+相较于 CLIP 等图像级 VLPM，GLIP\cite{li2022grounded}通过 grounding 数据与跨模态深融合机制获得更强的\textbf{目标级}表征能力，能够以文本提示的方式直接进行零样本目标检测。因此，本章以预训练 GLIP 作为零样本检测的核心基座，并聚焦于\textbf{如何自动构造适配病理域的高质量提示序列}。
+
+\section{提示设计实证分析}
+本章首先在 MoNuSeg\cite{kumar2017dataset} 上对提示设计进行实证分析，得到两点关键观察：
+\begin{itemize}
+  \item \textbf{更细粒度的语义描述能显著提升零样本检测性能}，尤其是引入“程度”词（如 relatively, dark 等）后，模型对核的定位更精确。
+  \item \textbf{提示序列的顺序会影响 GLIP 的预测}：将与数据更相关的提示放在序列前部，会带来更好的检测效果。
+\end{itemize}
+
+\begin{table}[t]
+\caption{不同文本提示在 MoNuSeg 测试集上的 mAP。提示从上到下逐步增加描述粒度。}
+\label{tab:attrip_PAdegree}
+\begin{center}
+\begin{small}
+\resizebox{0.75\columnwidth}{!}{
+\begin{tabular}{cc}
+\toprule[1.5pt]
+\textbf{Prompt}                      & \textbf{mAP} \\ \midrule[1.2pt]
+``Nuclei.''                              & 0.034        \\
+``Round purple nuclei.''                 & 0.046        \\
+``Relatively round dark purple nuclei.'' & 0.115        \\ \bottomrule[1.5pt]
+\end{tabular}
+}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{chapters/PAPERS/nucleiprompter__TMI_final_version/xu2.png}
+\caption{提示序列中更高相关性的提示放在更靠前的位置，可提升 GLIP 的预测精度（mAP 在 MoNuSeg 测试集统计）。}
+\label{fig:attrip_parelevance}
+\end{figure}
+
+\section{方法：AttriPrompter 自动提示框架}
+AttriPrompter 由三步组成：\textbf{属性生成}、\textbf{属性增强}与\textbf{相关性排序}。整体流程如图 \ref{fig:attrip_framework} 所示。
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{chapters/PAPERS/nucleiprompter__TMI_final_version/xu1.png}
+\caption{方法示意图。(a) AttriPrompter：利用 GLIP 与 BLIP\cite{li2022blip} 进行属性生成；利用 GPT\cite{radford2019language} 进行属性增强；通过相关性排序得到最终提示序列。(b) 基于自训练知识蒸馏的迭代优化。(c)(d) 分别展示属性增强与相关性排序细节。}
+\label{fig:attrip_framework}
+\end{figure*}
+
+\subsection{属性生成（Attribute Generation）}
+为避免人工设计带来的主观偏差，本章采用现成 VLPM 自动生成属性词。具体而言，先以医学名词（如 nuclei）作为初始提示输入 GLIP 得到粗检测框；然后将这些框裁剪成 patch，输入图文理解模型 BLIP\cite{li2022blip}，通过视觉问答（VQA）\cite{antol2015vqa}自动产出描述性词汇；最后通过词频统计与简单分类筛选得到与细胞核最相关的\textbf{形状}与\textbf{颜色}属性词。
+
+\subsection{属性增强（Attribute Augmentation）}
+如图 \ref{fig:attrip_framework}(c) 所示，属性增强由两部分构成。
+
+\textbf{同义增强。} 通过 GPT（本文采用 ChatGPT 3.5）对属性词进行同义扩展，以提升描述多样性并缓解提示不稳定。
+
+\textbf{程度增强。} 仅依赖属性生成与同义增强往往难以得到“深/浅”“更/较”等细粒度描述；而更细粒度的语义粒度对零样本定位尤为关键。为此，引入程度增强，使属性词覆盖不同程度层级，从而扩大语义覆盖范围并提高命中有效描述的概率，如图 \ref{fig:attrip_augmentation} 所示。
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.95\linewidth]{chapters/PAPERS/nucleiprompter__TMI_final_version/xu3.png}
+\caption{属性增强后的语义覆盖示意。(a) 颜色 ``purple'' 的增强；(b) 形状 ``round'' 的增强。同一框内为同义词，不同框表示不同程度层级。}
+\label{fig:attrip_augmentation}
+\vskip -0.15in
+\end{figure}
+
+\subsection{相关性排序（Relevance Sorting）}
+将得到的形状/颜色属性与医学名词按模板 ``[shape][color][noun].'' 组合成候选提示集合。但程度增强可能引入低相关词汇，因此需要基于图文相关性筛选并排序。
+
+令图像编码得到的视觉嵌入为 $R=E_{\mathcal{V}}(x_i)$，文本提示 $t$ 的文本嵌入为 $P=E_{\mathcal{T}}(t)$，则单个提示在训练集上的平均相关性可写为：
+\begin{equation}
+\label{eq:attrip_relevance}
+\cos \left(E_{\mathcal{V}}\left(x_i\right), E_{\mathcal{T}}(t)\right)=\frac{1}{n} \sum_{i=1}^n \frac{R \cdot P}{\left\|R\right\|_2 \cdot\left\|P\right\|_2},
+\end{equation}
+其中 $n$ 为训练图像数量（对每幅图像的候选框相似度取平均以得到最终相似度）。随后选取相似度最高的 Top-$N$ 提示，并按相似度从高到低排序形成最终提示序列输入 GLIP，实现初始零样本细胞核检测。
+
+\section{自训练知识蒸馏（SKD）}
+病理图像中的细胞核具有高密度特性\cite{zhou2023cyclic}，GLIP 的既定结构在密集同类目标上仍易出现漏检、误检与重叠。为在不破坏 GLIP 先验知识的前提下缓解结构限制，本章进一步设计自训练知识蒸馏框架：以 GLIP+AttriPrompter 的初始预测作为伪标签，训练一个检测专用学生网络（如 YOLOX\cite{ge2021yolox}），并通过蒸馏损失约束学生特征与 GLIP 图像编码器保持一致。
+
+设输入图像 $x_i$ 的伪标签为 $O_i=\{o_1,\dots,o_{k_i}\}$，学生网络特征提取器为 $E_{\mathcal{S}}$，检测头为 $\mathcal{H}$，则蒸馏损失与学生训练目标分别为：
+\begin{equation}
+\label{eq:attrip_kd}
+L_{KD}=\left\|E_{\mathcal{V}}(x), E_{\mathcal{S}}(x)\right\|_1,
+\end{equation}
+\begin{equation}
+\label{eq:attrip_student}
+L_{\mathcal{S}}=\frac{1}{n} \sum_{i=1}^n L_{Det}\left(O_i, \mathcal{H}\left(E_{\mathcal{S}}\left(x_i\right)\right)\right)+\alpha L_{KD},
+\end{equation}
+其中 $L_{Det}(\cdot)$ 为检测器损失，$\alpha$ 为权重超参数。进一步地，采用迭代自训练：用收敛的学生网络生成更高质量的伪标签并开启新一轮训练，从而逐步优化检测结果。
+
+\section{实验设置与结果}
+\subsection{数据集与评价指标}
+本文主要在 MoNuSeg\cite{kumar2017dataset} 与 CoNSeP\cite{graham2019hover} 两个 H\&E 细胞核数据集上验证方法有效性，并采用 COCO 风格指标 mAP、AP50、AP75 与 AR\cite{lin2014microsoft} 进行评估。
+
+\subsection{与现有方法对比}
+表 \ref{tab:attrip_comparison} 汇总了本文方法与多类代表性基线的对比结果，包括：全监督检测器（YOLOX）、点级弱监督方法，以及无监督方法（进一步区分为非 VLPM 与 VLPM 两类）。从整体结果看，本文方法在 MoNuSeg 与 CoNSeP 两个数据集上均取得了无监督设定下的最优结果，并在 mAP/AP50/AP75/AR 等指标上整体逼近全监督 YOLOX。
+
+从方法类别角度分析，传统非 VLPM 的无监督方法在病理核这种“高密度、同类、小目标”的场景下普遍较难兼顾召回与精度；而开放词汇的 VLPM 方法（如 VL-PLM、VLDet）虽具备通用语义能力，但若缺少面向病理域的提示设计与密集目标适配，其性能仍然有限。值得注意的是，基于 GLIP 的 MIU-VL 在本任务上表现偏弱，这与其提示构造更偏向稀疏目标/位置相关描述有关，在密集核检测中容易引入干扰。
+
+相比之下，AttriPrompter 通过（1）属性语义的自动生成与增强（尤其是“程度”词带来的更细粒度描述），（2）提示相关性排序，以及（3）SKD 自训练蒸馏带来的目标域适配，使得零样本伪标签更稳定、漏检更少，从而在两数据集上都获得更高的综合检测性能。进一步地，即便与使用点标注的弱监督方法相比，本文方法在无需任何人工标注的前提下仍能达到更优或相近的结果。
+
+\begin{table}[t]
+\caption{MoNuSeg 与 CoNSeP 上的对比结果（mAP/AP50/AP75/AR）。带 ``*'' 的方法基于医学图像，带 ``**'' 的方法专门针对 H\&E 图像。无监督方法中的最优结果以 \textbf{粗体} 标注。}
+\label{tab:attrip_comparison}
+\begin{center}
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{ccccccccc}
+\toprule[1.5pt]
+\multirow{2}{*}{\textbf{Method}} & \multicolumn{4}{c}{\textbf{MoNuSeg}} & \multicolumn{4}{c}{\textbf{CoNSeP}} \\ \cmidrule(r){2-5} \cmidrule(r){6-9}
+ & \textbf{mAP} & \textbf{AP50} & \textbf{AP75} & \textbf{AR} & \textbf{mAP} & \textbf{AP50} & \textbf{AP75} & \textbf{AR} \\ \midrule[1.2pt]
+\multicolumn{9}{c}{\textbf{Fully-supervised baseline}} \\
+\textbf{YOLOX} & 0.447 & 0.832 & 0.437 & 0.528 & 0.388 & 0.726 & 0.384 & 0.495 \\ \hline
+\multicolumn{9}{c}{\textbf{Weakly-supervised comparison}} \\
+\textbf{WSPointA(2019)**\cite{qu2019weakly}} & 0.341 & 0.683 & 0.272 & 0.423 & 0.301 & 0.593 & 0.277 & 0.362 \\
+\textbf{WSPPointA(2020)**\cite{qu2020weakly}} & 0.367 & 0.763 & 0.302 & 0.453 & 0.308 & 0.607 & 0.281 &  0.373 \\
+\textbf{WSMixedA(2020)**\cite{qu2020nuclei}} & 0.374 & 0.771 & 0.374 & 0.488 & 0.330 & 0.653 & 0.307 & 0.412 \\
+\textbf{WNSeg(2022)**\cite{liu2022weakly}} & 0.404 & 0.797 & 0.416 & 0.505 & 0.364 & 0.675 & 0.329 & 0.434 \\ \hline
+\multicolumn{9}{c}{\textbf{Unsupervised comparison: Non-VLPM-based}} \\
+\textbf{SSNS(2020)**\cite{sahasrabudhe2020self}} & 0.354 & 0.739 & 0.288 & 0.441 & 0.243 & 0.458 & 0.215 & 0.294 \\
+\textbf{PDAM(2020)*\cite{liu2020pdam}} & 0.275 & 0.588 & 0.228 & 0.380 & 0.166 & 0.364 & 0.132 &  0.298 \\
+\textbf{DARCNN(2021)*\cite{hsu2021darcnn}} & 0.262 & 0.476 & 0.267 & 0.356 & 0.173 & 0.388 & 0.129 & 0.310 \\
+\textbf{Freesolo(2022)\cite{wang2022freesolo}} & 0.292 & 0.607 & 0.248 & 0.393 & 0.222 & 0.393 & 0.246 & 0.370 \\
+\textbf{SOP(2022)*\cite{le2022unsupervised}} & 0.235 & 0.609 & 0.096 & 0.351 & 0.171 & 0.387 & 0.127 & 0.304 \\
+\textbf{PSM(2022)**\cite{chen2022unsupervised}} & 0.227 & 0.447 & 0.218 & 0.375 & 0.142 & 0.323 & 0.102 & 0.286 \\
+\textbf{CutLER(2023)\cite{wang2023cut}} & 0.115 & 0.213 & 0.117 & 0.184 & 0.089 & 0.181 & 0.049 & 0.155 \\ \hline
+\multicolumn{9}{c}{\textbf{Unsupervised comparison: VLPM-based}} \\
+\textbf{VL-PLM(2022)\cite{zhao2022exploiting}} & 0.333 & 0.582 & 0.342 & 0.501 & 0.159 & 0.357 & 0.120 & 0.291 \\
+\textbf{VLDet(2023)\cite{lin2022learning}} & 0.173 & 0.407 & 0.112 & 0.263 & 0.110 & 0.296 & 0.053 & 0.245 \\
+\textbf{MIU-VL(2023)*\cite{qin2022medical}} & 0.070 & 0.118 & 0.076 & 0.126 & 0.066 & 0.133 & 0.045 & 0.121 \\
+\textbf{VLPM-NuD(2023)**\cite{wu2023zeroshot}} & 0.416 & 0.808 & 0.382 & 0.502 & 0.359 & 0.668 & 0.363 & 0.480 \\
+\textbf{Ours**} & \textbf{0.425} & \textbf{0.819} & \textbf{0.401} & \textbf{0.511} & \textbf{0.367} & \textbf{0.669} & \textbf{0.376} & \textbf{0.488} \\ \bottomrule[1.5pt]
+\end{tabular}
+}
+\end{center}
+\end{table}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\linewidth]{chapters/PAPERS/nucleiprompter__TMI_final_version/xu4.png}
+\caption{可视化对比结果。绿/红/黄框分别表示真阳性/假阳性/假阴性。}
+\label{fig:attrip_comparison}
+\end{figure*}
+
+\subsection{消融实验}
+为评估自动提示框架中各设计选择的作用，本节在 MoNuSeg 上进行消融实验。为\textbf{直接衡量提示（prompt）质量}，本节消融均\textbf{不引入 SKD}，仅将提示序列直接输入 GLIP 并在一致的实验设置下统计性能。
+
+\subsubsection{自动提示与人工提示}
+表 \ref{tab:attrip_prompt} 对比了人工提示与自动提示。人工提示由三位病理专家分别撰写核的描述性语句并取平均性能，其典型表述会包含“染色质形态、核仁、深蓝/紫色染色”等经验性特征。相比之下，AttriPrompter 通过从数据中自动挖掘\textbf{形状/颜色属性}并进行增强与排序，在无需人工先验的情况下取得与人工设计相当甚至更优的结果（表中最后一行）。进一步地，随着属性从仅使用形状或颜色逐步扩展到\textbf{形状+颜色}的组合，GLIP 的零样本定位性能呈现稳定提升。
+
+值得注意的是，名词同义扩展（Aug. [noun.]）并未带来收益：将 ``Nuclei'' 扩展为 ``Nucleus''、``Cyteblast''、``Karyon'' 等较少见的医学同义词后，性能反而下降。这表明，过于生僻的医学术语可能未被 GLIP 的预训练语料充分覆盖，从而难以形成有效的跨模态对齐；相对而言，对\textbf{自然场景中更常见的属性词}进行增强往往更有效。此外，对比方法 MIU-VL\cite{qin2022medical} 在密集核检测上表现较差，一个重要原因在于其引入的\textbf{位置类属性}更适用于稀疏目标（如息肉/肿瘤）检测，但会干扰密集同类目标（细胞核）的定位。
+
+\begin{table}[t]
+\caption{自动提示与人工提示对比（不含 SKD，以直接评估提示质量）。最优结果以 \textbf{粗体} 标注。}
+\label{tab:attrip_prompt}
+\begin{center}
+\resizebox{0.9\columnwidth}{!}{
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{ccccccc}
+\toprule[1.5pt]
+\multicolumn{3}{c}{\multirow{2}{*}{\textbf{Prompt Design}}} & \multicolumn{4}{c}{\textbf{MoNuSeg}} \\ \cline{4-7}
+\multicolumn{3}{c}{} & \textbf{mAP} & \textbf{AP50} & \textbf{AP75} & \textbf{AR} \\ \midrule[1.2pt]
+\multicolumn{3}{c}{\textbf{Manual}} & 0.151 & 0.259 & 0.166 & 0.210 \\ \hline
+\multirow{10}{*}{\textbf{Auto}} & \multicolumn{2}{c}{\textbf{MIU-VL(2023)\cite{qin2022medical}}} & 0.070 & 0.118 & 0.076 & 0.126 \\ \cline{2-7}
+ & \textbf{Attribute} & \textbf{Noun} &  &  &  &  \\ \cline{2-7}
+ & \multirow{2}{*}{\textbf{\textbackslash{}}} & \textbf{'Nuclei.'} & 0.034 & 0.057 & 0.038 & 0.058 \\
+ &  & \textbf{Aug. {[}noun.{]}} & 0.029 & 0.054 & 0.029 & 0.059 \\ \cline{2-7}
+ & \textbf{{[}shape{]}} & \textbf{``Nuclei.''} & 0.097 & 0.181 & 0.097 & 0.155 \\
+ & \textbf{Aug. {[}shape{]}} & \textbf{``Nuclei.''} & 0.124 & 0.255 & 0.124 & 0.191 \\ \cline{2-7}
+ & \textbf{{[}color{]}} & \textbf{``Nuclei.''} & 0.009 & 0.016 & 0.010 & 0.024 \\
+ & \textbf{Aug. {[}color{]}} & \textbf{``Nuclei.''} & 0.064 & 0.115 & 0.066 & 0.112 \\ \cline{2-7}
+ & \textbf{{[}shape{]}{[}color{]}} & \textbf{``Nuclei.''} & 0.155 & 0.285 & 0.152 & \textbf{0.239} \\
+ & \textbf{Aug. {[}shape{]}{[}color{]}} & \textbf{``Nuclei.''} & \textbf{0.179} & \textbf{0.310} & \textbf{0.193} & 0.220 \\ \bottomrule[1.5pt]
+\end{tabular}
+}
+\end{center}
+\end{table}
+
+\subsubsection{AttriPrompter 各组件贡献}
+表 \ref{tab:attrip_promptcom} 进一步分析同义增强、程度增强与相关性排序三者的贡献。可以观察到：(1) 三个组件均能带来不同程度的性能增益，且\textbf{组合使用}可取得最佳 mAP；(2) 仅使用同义增强的设置与我们早期工作\cite{wu2023zeroshot}较为一致，其增益相对有限；(3) \textbf{程度增强}带来的提升最为显著之一，它能够生成更细粒度的“深/浅、较/更”等描述，从而帮助 GLIP 更准确地区分细胞核与背景或非目标组织。该结论也可从表 \ref{tab:attrip_prompt} 得到佐证：仅依赖未增强的颜色词时效果极差，原因在于 H\&E 图像中背景与细胞核在颜色上往往存在相似性；引入程度增强后，颜色描述的判别性显著提高，检测效果随之改善。
+
+\begin{table}[t]
+\caption{AttriPrompter 各组件消融（不含 SKD）。最优结果以 \textbf{粗体} 标注。}
+\label{tab:attrip_promptcom}
+\begin{center}
+\resizebox{0.9\columnwidth}{!}{
+\begin{tabular}{ccccccc}
+\toprule[1.5pt]
+\textbf{\begin{tabular}[c]{@{}c@{}}Synonym \\ Augmentation\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Degree\\ Augmentation\end{tabular}} &
+  \textbf{\begin{tabular}[c]{@{}c@{}}Relevance\\ Sorting\end{tabular}} &
+  \textbf{mAP} &
+  \textbf{AP50} &
+  \textbf{AP75} &
+  \textbf{AR} \\ \midrule[1.2pt]
+  &   &   & 0.150           & 0.275          & 0.150           & 0.228          \\
+\checkmark &   &   & 0.160           & 0.285          & 0.173          & 0.201          \\
+  & \checkmark &   & 0.176          & 0.304          & 0.187          & 0.213          \\
+  &   & \checkmark & 0.155          & 0.290           & 0.152          & \textbf{0.239} \\
+\checkmark &   & \checkmark & 0.174          & 0.301          & 0.188          & 0.210           \\
+  & \checkmark & \checkmark & 0.178          & \textbf{0.314} & 0.187          & 0.217          \\
+\checkmark & \checkmark &   & 0.177          & 0.309          & \textbf{0.193} & 0.220           \\
+\checkmark & \checkmark & \checkmark & \textbf{0.179} & 0.310           & \textbf{0.193} & 0.220           \\ \bottomrule[1.5pt]
+\end{tabular}
+}
+\end{center}
+\vskip -0.15in
+\end{table}
+
+\section{本章小结}
+本章面向无标注的零样本细胞核检测问题，提出自动提示框架 AttriPrompter，通过“属性生成--属性增强--相关性排序”自动构造高质量提示序列，显著提升 GLIP 在病理域的零样本定位能力；并进一步通过自训练知识蒸馏缓解密集细胞核带来的漏检与重叠问题，实现更强的无监督检测性能。
