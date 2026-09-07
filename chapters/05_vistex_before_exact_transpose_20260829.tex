@@ -1,0 +1,328 @@
+\chapter{基于视觉文本化图像提示的开放词汇检测方法}
+
+\section{引言}
+目标检测方法通常依赖大规模标注数据\cite{redmon2016you,ren2016faster}，在稀缺场景（如长尾类别、专业领域与医学影像）中往往难以获取足够标注。因此，少样本目标检测（Few-shot Object Detection, FSOD）\cite{wang2019metadet,Qiao_2021_defrcn2}成为重要研究方向。近年来，视觉语言预训练模型（VLMs）通过海量图文对学习具有较强泛化能力的跨模态表示，这启发广大研究无监督方法的科研工作者可以“以文本提示进行零样本迁移”。然而，医学图像与专业领域的下游任务仍存在三类典型困难：其一，下游类别在预训练语料中覆盖不足；其二，文本提示的描述粒度有限，容易产生语义偏置与遗漏；其三，细粒度目标往往共享相近的文本描述，仅靠文本难以区分\cite{xu2023mqdet,du2022learning}。
+
+目标级视觉语言模型（Object-level Vision-Language Models, OVLMs）\cite{li2022glip,dou2022fiber,liu2023groundingdino,minderer2022owlvit,ma2022hierkd}以 GLIP\cite{li2022glip} 为代表，利用 grounding 数据与多尺度/多阶段跨注意力结构建立了更强的\textbf{目标级图文对齐}，在零样本检测中显著优于 CLIP\cite{radford2021clip} 等图像级 VLM。然而，如何在\textbf{不破坏 OVLM 预训练的图文对齐}前提下，把下游任务中少量支持样本（support images）所包含的视觉语义注入到提示推理过程，仍然是一个关键难题。
+
+\section{视觉文本化图像提示方法}
+\subsection{研究问题与总体思路}
+现有基于 VLM 的 FSOD 方法通常通过\textbf{微调原模型权重}或\textbf{引入额外可学习结构}来利用支持图像信息，但在少量目标域数据下，这两类做法都可能导致原有的目标--文本相似度分布发生偏移，从而损害源域对齐并削弱泛化能力。更进一步地，许多 OVLM（如 GLIP 与 GroundingDINO）本质上是\textbf{“仅支持文本提示”的模型}，由于结构设计限制，缺少对图像提示（image prompting）的原生支持\cite{li2022glip,liu2023groundingdino}。
+
+图像提示为解决上述问题提供了一条思路：用支持图像作为提示，与文本提示一起为下游推理提供语义引导\cite{luddecke2022clipseg,xu2023mqdet}。然而，现有代表方法 MQ-Det\cite{xu2023mqdet} 通过在文本编码器内部额外引入可学习跨注意力模块来实现“图像调制文本”，它主要对现有文本 token 进行重加权，而非直接引入新的视觉信息；同时，新引入的结构也可能进一步偏置 OVLM 的预训练对齐。
+
+基于此，本章提出 VisTex-OVLM：通过\textbf{视觉文本化（visual textualization）}将支持图像投影到 OVLM 的\textbf{文本特征空间}，把支持样本以“文本 token”的形式直接并入提示序列，从而在不修改 OVLM 主体结构的前提下实现\textbf{直接图像提示}。
+
+\subsection{任务定义与符号说明}
+在经典 FSOD 设置中，存在基类数据集 $D_b$（类别集合 $C_b$）与新类数据集 $D_n$（类别集合 $C_n$），满足 $C_b\cap C_n=\emptyset$。在新类集合中，每个类别仅提供至多 $K$ 个带框标注实例（$K$-shot）。测试阶段中，提供少量标注的图像称为支持图像（support images），待预测的图像称为查询图像（query images）。在更一般的 GFSOD 设置中，测试类别集合为 $C_b\cup C_n$，要求模型在新类上提升的同时保持基类性能。
+
+对 OVLM 的多尺度/多阶段编码过程，记第 $i$ 个 stage 的中间视觉特征与文本特征分别为 $R^i$ 与 $P^i$，其中 $i=0,1,\ldots,L$。多尺度特征记为 $R^i=\left[R^{i,(j)}\right]_{j=0}^{M-1}$，其中 $M$ 表示尺度数。
+
+\subsection{总体框架}
+图 \ref{fig:vistex_framework} 给出了 VisTex-OVLM 的整体流程。其核心由两部分组成：\textbf{多尺度视觉文本化模块（Multi-scale Textualizing Blocks, MSTB）}与\textbf{多阶段融合策略（Multi-stage Fusion, MSF）}。二者共同将支持图像映射为一个或多个\textbf{视觉文本化 token}，并与常规文本提示 token 拼接后直接输入\textbf{冻结的} OVLM，实现无需改动主干结构的图像提示推理。
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.96\linewidth]{chapters/PAPERS/VisTex_ICCV_ver/cosine1.png}
+  \caption{目标域适配对预训练对齐的影响}
+  \label{fig:vistex_cosine}
+\end{figure}
+图~\ref{fig:vistex_cosine} 中，在有限目标域数据下，结构或权重的修改会使源域 object--text 相似度分布发生偏移，从而部分破坏预训练对齐。
+
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/figure4_2_vistex_method_white_20260817.png}
+  \caption{VisTex-OVLM 总体框架}
+  \label{fig:vistex_framework}
+\end{figure}
+图~\ref{fig:vistex_framework} 中，通过 MSTB 与 MSF 将支持图像投影到 OVLM 的文本特征空间，生成视觉文本化 token，并与文本提示共同驱动未修改的 OVLM（如 GLIP\cite{li2022glip}、GroundingDINO\cite{liu2023groundingdino}）完成少样本检测。
+
+
+\subsection{图像提示工程（Image Prompt Engineering）}
+由于检测属于密集预测任务，支持图像中同时包含目标、背景及其它干扰物体。为最大化利用少样本标注，本章采用图像提示工程：结合支持图像中的目标框信息，对框外区域进行模糊化处理，使得支持图像更聚焦于目标实例\cite{luddecke2022clipseg}。
+
+\subsection{多尺度视觉文本化（MSTB）}
+给定提示工程后的支持图像 $x_S$，使用冻结的 OVLM 视觉编码器提取各 stage 的多尺度特征 $R^i_S=\left[R_S^{i,(j)}\right]_{j=0}^{M-1}$。MSTB 的目标是将不同尺度的视觉特征统一聚合，并映射到文本特征维度，从而得到 stage 级的视觉文本化特征 $\widetilde{P^i_S}$。
+
+为高效共享跨尺度知识并降低训练成本，MSTB 采用参数共享策略：对除最小尺度以外的各尺度特征使用共享的下采样卷积逐级压缩到同一空间分辨率，拼接后再用 MLP 映射到文本空间，形式化为：
+\begin{equation}
+\begin{aligned}
+    \widetilde{R^{i,(j)}_S} = \left\{
+    \begin{array}{ll}
+    \left( \prod_{j}^{M-2} \operatorname{Conv}_{\text{down}}^{i,(j)}\right) \left( R^{i,(j)}_S \right), & \text{if } j \neq M-1 \\
+    R^{i,(j)}_S, & \text{if } j = M-1
+    \end{array}
+    \right.
+\end{aligned}
+\label{eq:vistex_downsample}
+\end{equation}
+\begin{equation}
+    \widetilde{R^i_S} = \left[ \widetilde{R^{i,(j)}_S} \right]_{j=0}^{M-1},
+\label{eq:vistex_concat}
+\end{equation}
+\begin{equation}
+    \widetilde{P^i_S} = \operatorname{MLP}^i \left( \widetilde{R^i_S} \right).
+\label{eq:vistex_mlp}
+\end{equation}
+
+\subsection{多阶段融合（MSF）}
+OVLM 的多阶段编码对应着多阶段的跨模态对齐过程。为充分利用这种对齐先验，本章进一步对各 stage 的 $\widetilde{P^i_S}$ 进行非参数融合，得到最终的视觉文本化 token $\widetilde{P_S}$：
+\begin{equation}
+    \widetilde{P_S} = \operatorname{MSF} \left( \{ \widetilde{P^i_S}\}_{i=0}^L \right).
+\label{eq:vistex_msf}
+\end{equation}
+由于 MSF 采用非参数操作（如跨 stage 的 max pooling），因此在不引入额外参数的情况下即可利用 OVLM 的多阶段对齐能力。
+
+\subsection{直接支持图像提示（Direct Image Prompting）}
+得到 $\widetilde{P_S}$ 后，将其与文本提示 $t$ 经 BERT 编码得到的 token 直接拼接，构成输入 OVLM 的提示序列：
+\begin{equation}
+    P^0 = \left[ \operatorname{BERT}\left(t\right), \widetilde{P_S} \right].
+\label{eq:vistex_prompt_1shot}
+\end{equation}
+对于 $K$-shot 设置，为保持每个 shot 的独立性，直接拼接多个视觉文本化 token：
+\begin{equation}
+    P^0 = \left[ \operatorname{BERT}\left(t\right), \widetilde{P_{S_1}}, \cdots, \widetilde{P_{S_K}} \right].
+\label{eq:vistex_prompt_kshot}
+\end{equation}
+在训练阶段，仅更新 MSTB 的参数，OVLM 主体保持冻结；训练完成后，MSTB 可直接对新类支持样本进行视觉文本化，从而在不微调 OVLM 的条件下完成少样本检测。
+
+\section{实验设置}
+
+\subsection{数据集与任务划分}
+本章实验由三层评价组成：经典少样本检测基准用于检验方法在受控类别划分下的有效性，开放集与长尾基准用于检验跨任务泛化能力，医学数据集用于检验从自然图像到非自然成像域的迁移稳定性。所有实验均遵循“源域训练、目标域少量支持、目标测试集仅用于评价”的原则；除专门标注的支持集适配实验外，不使用目标测试图像或其标注更新模型参数。
+
+\textbf{PASCAL VOC。} PASCAL VOC 由 VOC2007 和 VOC2012 两个版本构成，共包含 20 个常见目标类别\cite{everingham2010pascalvoc}。本章遵循标准 FSOD 协议\cite{wang2020frustratingly,zhang2022metaDETR1}，采用三个互不相同的 novel split。每个 split 均将 20 类划分为 15 个基类 $C_b$ 与 5 个新类 $C_n$，以 VOC2007/2012 的 trainval 图像构造训练与支持集合，并在 VOC2007 test 上评价。三个 split 能减弱单次类别划分带来的偶然性：某一类别在一个 split 中作为 novel 类时可能具有较大的外观变化，而在另一个 split 中则由其他类别承担这一角色。实验分别报告 1、2、3、5 和 10-shot 结果，主要指标为 novel 类 AP50。
+
+\textbf{MSCOCO。} MSCOCO 包含 80 个类别和更复杂的遮挡、尺度及背景组合\cite{lin2014microsoftCOCO}。按照通行划分，将与 PASCAL VOC 重合的 20 类作为 novel 类，其余 60 类作为 base 类；训练阶段使用 base 类数据学习视觉文本化映射，评价阶段在包含 base 与 novel 类的 COCO minival 上报告结果。少样本设置采用 1、2、3、5、10 和 30-shot。该划分比 VOC 更具挑战性，一方面 novel 类数量由 5 增至 20，另一方面同一图像中常同时出现 base 与 novel 实例，因此能够同时观察新类适配和旧类保持能力。
+
+\textbf{LVIS 与 ODinW。} LVIS 具有超过一千个实例类别及显著的长尾分布，类别按训练实例频次划分为 rare、common 与 frequent\cite{gupta2019lvis}。本章采用 LVIS MiniVal 测量大词汇量和低频类别上的迁移能力，除总体 AP 外重点关注 rare 类 AP。ODinW 是面向真实下游任务的跨数据集检测基准，各子集均转换为 COCO 检测格式，覆盖水下生物、无人机航拍、手部、蘑菇、包裹、道路坑洞、热成像和交通工具等显著不同的场景\cite{li2022odinw}。定量开放集实验选取 ODinW35 中 GLIP-L 零样本 mAP 不高于 2 的 11 个困难子集，以减少预训练类别重合带来的虚高；定性分析进一步使用 ODinW13 的 13 个代表性任务，观察相同方法在不同尺度、背景密度和成像模态下的误检与漏检规律。
+
+\textbf{医学图像数据。} 医学迁移实验同时覆盖 H\&E 病理图像与 CT 图像。MoNuSeg 由 30 张 $1000\times1000$ 的多器官病理图像组成，按照原始协议使用 16 张训练图像和 14 张测试图像，任务为细胞核检测或实例分割\cite{kumar2017dataset}。CoNSeP 包含从结直肠腺癌 WSI 中截取的 41 张 $1000\times1000$ H\&E 图像，采用 26/1/14 的训练、验证和测试划分，并提供多类细胞核标注\cite{graham2019hover}。这两类病理数据具有细胞密集、前景尺度小、类别间形态接近等特点，与 COCO 自然图像存在明显域差异。LIDC-IDRI 收集 1,018 例胸部 CT 检查，并由最多四名胸部放射科医师通过两阶段阅片过程标注肺结节\cite{armato2004lungLIDC}；DeepLesion 则从临床 PACS 标记中整理出 32,735 个病灶，覆盖 32,120 张 CT 切片、10,594 次检查和 4,427 名患者，病灶类型与解剖位置更加多样\cite{yan2017deeplesion}。在这两类 CT 数据上，支持框描述的是结节或通用病灶，而非自然图像物体，用于检验视觉文本化能否跨越纹理、灰度和目标尺度的联合偏移。
+
+\textbf{域偏移组织方式。} 对开放集和医学域实验，源模型在 MSCOCO base 集上训练，目标数据集整体视为 novel 任务。每个目标类别只从其训练划分抽取 $K$ 个带框实例形成支持集，目标验证/测试划分仅作为查询集。正文中的“直接迁移”表示冻结源模型和视觉文本化模块，仅将支持图像映射为 token 后推理；“2-shot 适配”表示只在明确标注的两张支持图像上短暂更新 MSTB，主干视觉语言模型仍保持冻结。两种口径分别回答“无需目标域更新能否工作”和“极少量适配能否快速恢复性能”，结果表格中不混合统计。
+
+\subsection{数据预处理与支持集抽样}
+支持集按照类别而非整图数量进行抽样：$K$-shot 表示每个类别至多提供 $K$ 个标注实例。当一张图像含有多个类别时，仅将与当前支持类别对应的框用于构造前景区域，避免把共现类别误当作提示目标。为保证横向比较公平，所有方法在同一 split、shot 和随机种子下读取完全相同的支持图像及实例框；每个设置采用三个固定随机种子重复抽样并报告均值与标准差。测试期间支持集合固定，不根据查询图像的预测结果重新挑选“更容易”的样本。
+
+自然图像保持原始纵横比并按检测器的尺度规则缩放。病理图像先按固定窗口裁剪为 patch，再移除大面积空白区域；CT 图像采用一致的灰度窗和归一化范围。支持实例的框被用于区分前景与背景，但不把目标测试集标注输入模型。对于图像提示工程，默认采用背景弱化策略：保留框内原始像素，对框外区域施加 0.1 强度阴影及核大小 15、标准差 3 的高斯模糊。该方式既突出目标，又保留少量上下文；相比只裁剪目标，它能避免丢失尺度和邻域信息，相比绘制红色轮廓则不会覆盖原始纹理。
+
+\subsection{提示构造与实现细节}
+每个查询类别首先以类别名称构造文本提示，文本编码器将其映射为类别语义锚点；随后，支持图像经过冻结的视觉编码器得到多尺度特征，MSTB 将这些特征投影到语言特征维度并生成视觉文本化 token。最终提示序列由“文本 token + 支持视觉 token”拼接而成。文本提示负责说明“检测什么”，视觉 token 负责补充“目标在当前数据域中长什么样”，两者不能相互替代。多 shot 条件下保留各支持样本的独立 token 后再拼接，避免简单平均掩盖姿态、尺度和染色差异。
+
+主实验采用预训练 GLIP-L 作为 OVLM 骨架，并以 GroundingDINO-T 验证模块的可迁移性。GLIP-L 中 $H=W=100$、多尺度层数 $M=5$；MSTB 的映射器由两层“全连接层 + ReLU”构成，依次完成空间聚合和从图像通道维度到文本通道维度的转换。MSTB 默认接入 GLIP-L 的 8 个图文交互阶段，阶段间采用无参数最大池化完成 MSF。训练 MSTB 时冻结原有 OVLM 参数，在 base 数据上每轮为每类随机选取 $K$ 个支持实例，其余图像作为 query；采用 AdamW 优化 30 个 epoch，初始学习率为 $10^{-4}$，权重衰减为 0.01。该设置把新增学习能力限制在视觉文本化映射上，便于区分“提示适配增益”与“整体模型重训练增益”。
+
+\subsection{评价指标与选择依据}
+经典 VOC 少样本实验报告 AP50，即在交并比阈值 $mathrm{IoU}=0.5$ 下对精确率--召回率曲线积分。该指标对定位误差具有一定容忍度，适合观察极少样本条件下类别是否被正确发现。MSCOCO 与开放集实验报告 AP 或 mAP，即在 $mathrm{IoU}=0.50:0.05:0.95$ 的十个阈值上平均，因而同时考察类别判别和边界定位精度\cite{lin2014microsoftCOCO}。需要强调的是，AP 是按类别分别计算再取宏平均，样本量大的类别不会直接淹没低频类别。
+
+在广义少样本检测（GFSOD）中，同时报告总体 AP、基类 AP（bAP）和新类 AP（nAP）。总体 AP 反映部署时 base 与 novel 类共同出现的综合表现；bAP 用于检查少样本适配是否造成灾难性遗忘；nAP 则直接衡量模型从支持样本获得的新类泛化能力。若只报告总体 AP，较高的 base 类分数可能掩盖 novel 类几乎没有改善；若只报告 nAP，又可能忽略模型通过过拟合支持集换取新类分数、同时破坏原有知识的问题。因此，AP、bAP 与 nAP 的联合报告是判断视觉文本化是否真正“增加新知识而不破坏旧对齐”的必要条件\cite{wang2020frustratingly,zhang2022metaDETR1}。
+
+对于 LVIS，另报告稀有类别 AP（APr），用于观察长尾低频类别是否从视觉提示中获得更大收益\cite{gupta2019lvis}。医学单图分析和可视化补充报告精确率、召回率与 F1：精确率反映误检控制，召回率反映小目标或密集目标的漏检程度，F1 是二者的调和平均。由于不同数据集的类别数、目标密度和标注粒度不同，跨数据集时不直接比较绝对 AP 高低，而重点比较同一数据集、同一支持集和同一评价脚本下相对于 GLIP-ZS 及其他基线的增量。
+
+\section{实验结果与分析}
+\subsection{标准少样本检测结果}
+表 \ref{tab:vistex_fsod} 汇总了 MSCOCO 新类在不同 shot 数下的代表性结果。GLIP-ZS 和 GroundingDINO-ZS 不使用支持图像，因此其结果不随 shot 数变化；完全微调虽然可以利用支持样本，但在极低样本条件下容易过拟合。相比之下，VisTex-GLIP 从 1-shot 的 47.9 AP 提升到 30-shot 的 53.6 AP，VisTex-DINO 则由 48.9 AP 提升到 55.4 AP。更重要的是，在 1--5 shot 的数据极度受限区间，视觉文本化已经能够稳定超过对应的零样本和完全微调基线，说明增益并非来自大规模目标域训练，而是来自支持图像语义与预训练对齐空间的有效结合。
+
+\begin{table}[t]
+  \centering
+  \caption{MSCOCO 新类少样本检测结果}
+  \label{tab:vistex_fsod}
+  \resizebox{\linewidth}{!}{
+  \begin{tabular}{l|rrrrrr}
+    \hline
+    方法 & 1-shot & 2-shot & 3-shot & 5-shot & 10-shot & 30-shot \\ \hline
+    GLIP-ZS & 42.9 & 42.9 & 42.9 & 42.9 & 42.9 & 42.9 \\
+    GLIP-FF & 41.2 & 44.7 & 47.5 & 48.8 & 49.3 & 49.4 \\
+    MQ-Det & 42.2 & 46.3 & 47.5 & 47.7 & 47.8 & 48.1 \\
+    \textbf{VisTex-GLIP} & \textbf{47.9} & \textbf{51.8} & \textbf{52.2} & \textbf{52.6} & 52.7 & 53.6 \\ \hline
+    GroundingDINO-ZS & 48.5 & 48.5 & 48.5 & 48.5 & 48.5 & 48.5 \\
+    GroundingDINO-FF & 48.7 & 48.9 & 49.3 & 50.8 & 51.6 & 53.0 \\
+    \textbf{VisTex-DINO} & \textbf{48.9} & \textbf{49.2} & \textbf{50.2} & \textbf{52.5} & \textbf{54.3} & \textbf{55.4} \\ \hline
+  \end{tabular}}
+\end{table}
+表~\ref{tab:vistex_fsod} 中，ZS 表示零样本直接测试，FF 表示对 OVLM 进行完全微调。
+
+
+\subsection{广义少样本检测与基类保持}
+经典 FSOD 只报告新类性能，可能掩盖模型对基类知识的遗忘。为此，表 \ref{tab:vistex_gfsod} 同时给出总体 AP、基类 AP（bAP）和新类 AP（nAP）。VisTex-GLIP 在 10-shot 和 30-shot 下均取得最高总体 AP 与 nAP，并且 bAP 没有因新类适配而明显下降。这一现象与图 \ref{fig:vistex_cosine} 的观察一致：视觉文本化把新信息写入提示序列，而不是直接改写 OVLM 参数，因此能够在吸收支持样本信息的同时保留预训练模型原有的类别覆盖能力。
+
+\begin{table}[t]
+    \centering
+    \resizebox{0.8\linewidth}{!}{
+    \begin{tabular}{ccccccc}
+    \hline
+    \multicolumn{1}{c|}{} & \multicolumn{3}{c|}{\textbf{10-shot}} & \multicolumn{3}{c}{\textbf{30-shot}} \\ \cline{2-7} 
+    \multicolumn{1}{c|}{\multirow{-2}{*}{\textbf{方法}}} & \textbf{AP} & \textbf{bAP} & \multicolumn{1}{c|}{\textbf{nAP}} & \textbf{AP} & \textbf{bAP} & \textbf{nAP} \\ \hline
+    \multicolumn{7}{c}{\textbf{非 VLM 方法}} \\ \hline
+    \multicolumn{1}{c|}{\textbf{DiGeo \cite{ma2023digeo}}} & 32.0 & 39.2 & \multicolumn{1}{c|}{10.3} & 33.1 & 39.4 & 14.2 \\
+    \multicolumn{1}{c|}{\textbf{DE-VIT-L \cite{zhang2023devit}}} & 30.6 & 29.4 & \multicolumn{1}{c|}{34.0} & 30.6 & 29.5 & 34.0 \\ \hline
+    \multicolumn{7}{c}{\textbf{VLM 方法}} \\ \hline
+    \multicolumn{1}{c|}{\textbf{FM-FSOD-L \cite{Han_2024_FM-FSOD}}} & 40.0 & 44.2 & \multicolumn{1}{c|}{27.7} & 43.1 & 45.2 & 37.0 \\
+    \multicolumn{1}{c|}{\textbf{MQ-Det \cite{xu2023mqdet}}} & 46.9 & \textbf{46.5} & \multicolumn{1}{c|}{47.8} & 47.3 & 46.8 & 48.1 \\
+    \multicolumn{1}{c|}{\textbf{VisTex-GLIP}} & \textbf{48.1} & 46.2 & \multicolumn{1}{c|}{\textbf{52.7}} & \textbf{48.9} & \textbf{47.2} & \textbf{53.6} \\ \hline
+    \end{tabular}
+    }
+    \caption{MSCOCO 广义少样本检测结果}
+    \label{tab:vistex_gfsod}
+\end{table}
+表~\ref{tab:vistex_gfsod} 中，bAP/nAP 分别表示 base/novel 类别 AP。
+
+
+\subsection{开放集与医学数据迁移}
+为了排除“目标类别已经在预训练语料中出现”的影响，本章把在 MSCOCO 基类上训练的模型直接迁移到类别重叠较少的开放集数据。表 \ref{tab:vistex_medical} 给出了五个医学数据集的 2-shot 结果。普通少样本检测器和直接零样本 GLIP 在显著域偏移下性能较低，而 VisTex-GLIP 在 MoNuSeg、CCRCC、CoNSeP、LIDC 与 DeepLesion 上分别达到 28.9、31.5、35.7、12.2 和 11.7 AP。这一结果说明，支持图像提供的不仅是类别名称的补充，而是包含染色、形态、尺度与局部上下文的目标级视觉证据。
+
+\begin{table}[t]
+  \centering
+  \caption{医学数据集开放集迁移结果}
+  \label{tab:vistex_medical}
+  \resizebox{\linewidth}{!}{
+  \begin{tabular}{l|rrrrr}
+    \hline
+    方法 & MoNuSeg & CCRCC & CoNSeP & LIDC & DeepLesion \\ \hline
+    Meta-DETR & 15.5 & 18.2 & 19.9 & 1.2 & 0.6 \\
+    DiGeo & 18.2 & 20.4 & 22.8 & 6.1 & 2.3 \\
+    DeFRCN & 16.3 & 18.8 & 20.1 & 5.2 & 2.8 \\
+    MFD & 19.5 & 24.2 & 18.0 & 7.5 & 3.5 \\
+    MQ-Det & 17.7 & 18.9 & 16.7 & 6.3 & 3.1 \\
+    GLIP-ZS & 4.2 & 8.8 & 1.3 & 0.3 & 0.0 \\
+    \textbf{VisTex-GLIP} & \textbf{28.9} & \textbf{31.5} & \textbf{35.7} & \textbf{12.2} & \textbf{11.7} \\ \hline
+  \end{tabular}}
+\end{table}
+表~\ref{tab:vistex_medical} 中，模型在 MSCOCO 基类上训练，目标医学类别不参与主干训练。
+
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/figure4_3_medical_glip_vistex_ccrcc29_20260823.png}
+  \caption{医学开放集检测结果可视化}
+  \label{fig:vistex_medical}
+\end{figure}
+图~\ref{fig:vistex_medical} 从上至下给出 CoNSeP、CCRCC 与 MoNuSeg 三个病理数据集的代表性样本，从左至右依次为输入图像、真实标注、GLIP-ZS 直接预测和 VisTex-GLIP 预测。按 IoU 阈值 0.5 对所展示单图进行匹配后，F1 分别由 $0.088$ 提高至 $0.297$、由 $0.406$ 提高至 $0.667$、由 $0.655$ 提高至 $0.784$。这些逐图指标仅用于辅助解释图中漏检与定位改善，不替代数据集级总体评价。
+
+
+\subsection{医学域支持图像提示的增益与消融}
+为进一步区分医学域迁移增益究竟来自类别文本，还是来自支持图像中的目标外观信息，本节在相同的 2-shot 医学迁移协议下进行一个最小消融：关闭支持图像提示时，模型仅使用类别文本；开启支持图像提示时，则在相同文本提示后追加由两张医学支持图像生成的视觉文本化 token。两种设置均保持主干模型和目标域训练协议一致，因此二者之间的差异可以直接反映支持图像提示的贡献。
+
+表 \ref{tab:vistex_medical_prompt_ablation} 汇总了五个医学数据集上的结果。关闭支持图像提示的 GLIP-ZS 在所有数据集上均明显低于开启支持图像提示的 VisTex-GLIP；后者在 MoNuSeg、CCRCC、CoNSeP、LIDC 和 DeepLesion 上分别获得 24.7、22.7、34.4、11.9 和 11.7 个百分点的 AP 提升，平均提升 21.1 个百分点。CoNSeP 上的增益最大，说明在细胞形态相近、类别边界依赖局部纹理的病理任务中，视觉支持信息能够补充单纯类别名称难以表达的形态线索。LIDC 与 DeepLesion 的增益相对较小，但方向仍保持一致，说明视觉文本化对不同医学成像风格具有一定的迁移稳定性。
+
+需要强调的是，表 \ref{tab:vistex_medical_prompt_ablation} 与后文的当前代码复测表采用不同版本的实验协议：前者用于复现论文中的医学域提示消融，后者用于检查当前冻结推理分支在现有数据划分上的绝对表现。因此，本章不将两张表中的绝对数值直接混合排序，而是分别讨论支持图像提示带来的相对变化和当前实现的复测结果。
+
+\begin{table}[t]
+  \centering
+  \caption{医学域图像提示消融}
+  \label{tab:vistex_medical_prompt_ablation}
+  \resizebox{\linewidth}{!}{%
+  \begin{tabular}{l|rrrrr|r}
+    \hline
+    方法 & MoNuSeg & CCRCC & CoNSeP & LIDC & DeepLesion & 平均提升 \\
+    \hline
+    GLIP-ZS（关闭支持图像提示） & 4.2 & 8.8 & 1.3 & 0.3 & 0.0 & -- \\
+    VisTex-GLIP（开启支持图像提示） & 28.9 & 31.5 & 35.7 & 12.2 & 11.7 & -- \\
+    支持图像提示增益 & +24.7 & +22.7 & +34.4 & +11.9 & +11.7 & +21.1 \\
+    \hline
+  \end{tabular}}
+\end{table}
+表~\ref{tab:vistex_medical_prompt_ablation} 中，关闭提示时仅使用类别文本，开启提示时追加视觉文本化 token。
+
+
+\subsection{关键组件消融}
+表 \ref{tab:vistex_components} 将文本提示、图像提示、MSTB 参数共享和 MSF 逐项加入。只使用图像提示而移除文本提示时，新类 AP 明显下降，表明文本提供稳定的类别语义锚点；加入文本提示后，视觉 token 才能作为类内外观补充发挥作用。进一步引入 MSTB 参数共享和 MSF 后，nAP 从 41.2 提升到 51.8，说明多尺度与多阶段信息均是视觉文本化成立的关键，而不是简单地把一张支持图像编码后拼接到文本序列。
+
+\begin{table}[t]
+  \centering
+  \caption{VisTex 关键组件消融}
+  \label{tab:vistex_components}
+  \resizebox{\linewidth}{!}{
+  \begin{tabular}{l|cccc|r|rrr}
+    \hline
+    方法 & 文本提示 & 图像提示 & MSTB共享 & MSF & 参数量/M & AP & bAP & nAP \\ \hline
+    GLIP-ZS & $\checkmark$ & $\times$ & $\times$ & $\times$ & 0.00 & 42.9 & 44.9 & 40.5 \\
+    GLIP-FF & $\checkmark$ & $\checkmark^{*}$ & $\times$ & $\times$ & 397.59 & 44.3 & 44.1 & 44.7 \\
+    MQ-Det & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & 53.10 & 44.7 & 43.5 & 46.3 \\ \hline
+    VisTex-GLIP & $\times$ & $\checkmark$ & $\times$ & $\times$ & 38.52 & 30.6 & 32.5 & 25.9 \\
+    VisTex-GLIP & $\checkmark$ & $\checkmark$ & $\times$ & $\times$ & 38.52 & 37.1 & 29.7 & 41.2 \\
+    VisTex-GLIP & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\times$ & 29.20 & 48.3 & 45.7 & 49.0 \\
+    \textbf{VisTex-GLIP} & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & 63.06 & \textbf{50.3} & \textbf{48.6} & \textbf{51.8} \\ \hline
+  \end{tabular}}
+\end{table}
+表~\ref{tab:vistex_components} 中，参数量仅统计可训练参数；$\checkmark^{*}$ 表示通过微调模型权重间接使用支持图像。
+
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{chapters/PAPERS/VisTex_ICCV_ver/corr_attentionmap.png}
+  \caption{图像提示注意力响应}
+  \label{fig:vistex_attention}
+\end{figure}
+图~\ref{fig:vistex_attention} 中，方法名及 GLIP、MQ-Det、VisTex-GLIP 等模型缩写保留英文；热区显示在文本提示基础上加入视觉文本化 token 后，查询特征对目标区域的响应更集中。
+
+
+图 \ref{fig:vistex_attention} 从特征响应角度补充了定量结论。完全微调或只进行文本调节时，注意力容易扩散到背景或同类干扰区域；VisTex-GLIP 同时使用文本提示和视觉文本化 token 后，对目标轮廓及判别性局部的响应更加稳定。这说明视觉文本化并非替代语言语义，而是在保持类别语义锚点的前提下补充支持实例的外观信息。
+
+\subsection{定性结果与失败模式}
+图 \ref{fig:vistex_vis} 展示了 COCO 上与多种代表方法的输出对比。VisTex-GLIP 对小目标、遮挡目标和外观变化较大的新类具有更高召回率，同时减少了把语义相近背景误判为目标的情况。仍需指出，若支持样本本身包含严重遮挡、错误框或不具有代表性的背景，视觉 token 也可能携带偏置信息；当新类与基类在形态上高度相近时，仅依靠少量支持样本仍可能出现类别混淆。因此，支持样本质量控制与 shot 间信息融合仍是后续需要进一步研究的问题。
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{chapters/PAPERS/VisTex_ICCV_ver/vis_com.png}
+  \caption{MSCOCO 检测结果可视化}
+  \label{fig:vistex_vis}
+\end{figure}
+图~\ref{fig:vistex_vis} 中，绿/红/黄框分别表示真阳性/假阳性/假阴性。
+
+
+
+
+\subsection{开放集补充结果与失败分析}
+前文已经给出 MSCOCO、GFSOD、医学数据迁移和关键组件消融的原生表格。本节补充 PASCAL VOC、开放集转移及失败案例，以使视觉文本化方法的适用边界更加清楚。VisTex 的关键思想是把支持图像映射为文本特征空间中的视觉 token，而不是在 novel 类上直接改写主干参数，因此补充实验重点观察支持图像质量、尺度信息和开放集域差异。
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.78\textwidth]{chapters/PAPERS/VisTex_ICCV_ver/PASCAL VOC.png}
+  \caption{PASCAL VOC 少样本检测结果}
+  \label{fig:vistex_pascal}
+\end{figure}
+图~\ref{fig:vistex_pascal} 中，比较不同 novel split 和 shot 设置下的 AP50，说明视觉文本化不仅在 MSCOCO 上有效，也能迁移至类别划分不同的经典少样本检测基准。
+
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{minipage}[c]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\linewidth,viewport=0 1800 1840 3750,clip]{chapters/PAPERS/VisTex_ICCV_ver/ODinW13_sd.png}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.49\textwidth}
+    \centering
+    \includegraphics[width=\linewidth,viewport=0 0 1840 1800,clip]{chapters/PAPERS/VisTex_ICCV_ver/ODinW13_sd.png}
+  \end{minipage}
+  \caption{ODinW13 开放集迁移结果}
+  \label{fig:vistex_odinw}
+\end{figure}
+图~\ref{fig:vistex_odinw} 将原先纵向排列的 13 个数据集拆分为左右两个横向区域，在不改变任何预测框和方法顺序的前提下压缩纵向版面。左侧依次展示 Aquarium、AerialDrone、Rabbits、EgoHands、Mushrooms、PascalVOC 与 Packages，右侧展示 Pistols、Pothole、Raccoon、Shellfish、Thermal 与 Vehicles；每个数据集内部六列依次对应 Meta-DETR、DiGeo、DeFRCN、MFD、MQ-Det 和 VisTex-GLIP。
+
+从目标属性看，Aquarium、AerialDrone 与 Pothole 等场景同时包含小目标、俯视视角或低对比度背景，零样本模型容易把局部纹理相近区域当作目标；Rabbits、Raccoon 和 Vehicles 的目标轮廓较完整，视觉提示更容易形成稳定的形状原型。VisTex-GLIP 在大多数行中表现为绿色真阳性框增加、黄色漏检框减少，说明支持图像提供的颜色、局部纹理和典型轮廓可以弥补类别名称描述不足。对 Packages、Thermal 等域偏移更强的任务，提升并不完全一致，表明视觉 token 的有效性仍受支持样本代表性与成像模态差异制约。该规律与定量结果一致：方法的优势不是把所有任务统一抬高相同幅度，而是在文本语义不足时利用少量实例外观恢复目标--文本对齐。
+
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.76\textwidth]{chapters/PAPERS/VisTex_ICCV_ver/failure.png}
+  \caption{VisTex-OVLM 典型失败案例}
+  \label{fig:vistex_failure}
+\end{figure}
+图~\ref{fig:vistex_failure} 进一步给出三类典型失败模式。第一类是\textbf{密集小目标漏检}：单个实例在高层特征中的空间响应过弱，即使支持图像给出正确语义，查询区域仍可能无法形成足够稳定的候选框。第二类是\textbf{背景共现偏差}：支持框附近若长期伴随固定纹理、器械或组织结构，MSTB 可能把这部分上下文一并编码为视觉 token，造成相似背景上的假阳性。第三类是\textbf{近邻类别混淆}：novel 类与 base 类在局部形状上高度相似时，少量支持样本未必覆盖真正具有判别力的姿态或尺度，文本语义与视觉外观会给出不一致的类别证据。
+
+这些现象说明，视觉文本化的主要作用是改善支持实例与查询目标之间的对齐，而不是替代候选框生成、尺度建模和数据质量控制。失败案例与图~\ref{fig:vistex_odinw} 的跨域规律相互印证：当目标轮廓清晰且支持样本具有代表性时，视觉 token 能稳定降低漏检；当目标极小、成像模态变化显著或支持背景具有强偏差时，增益会减弱。因而实验报告必须同时记录支持图像选择规则、shot 数、随机种子及不同种子间波动，不能只报告一个未说明抽样过程的最高分。后续可通过支持样本质量评分、跨 shot 去冗余和不确定性加权进一步减轻上述问题。
+
+\subsection{病理图像实例特征分布分析}
+为进一步观察视觉文本化对病理图像实例表征的影响，本文在 CoNSeP 验证集上对同一批实例分别提取 GLIP-ZS 与 VisTex-GLIP 的实例级特征，并使用相同的降维参数进行 t-SNE 可视化。类别包括炎性细胞、正常上皮细胞、异型或恶性上皮细胞、成纤维细胞、肌细胞和内皮细胞等。
+
+\begin{figure}[H]
+  \centering  \includegraphics[width=0.96\textwidth]{figures/figure4_consep_tsne_centered_20260823.png}  \caption{GLIP-ZS 与 VisTex-GLIP 的 CoNSeP 实例特征分布}  \label{fig:vistex_consep_tsne}
+\end{figure}
+图~\ref{fig:vistex_consep_tsne} 中，VisTex-GLIP 的同类实例呈现更集中的趋势，PCA 特征上的轮廓系数由 $-0.021$ 提高至 $-0.011$，t-SNE 平面上的轮廓系数由 $-0.095$ 提高至 $-0.080$。这一改善幅度有限，但与检测实验中视觉提示能够补充细粒度外观线索的结论一致。为便于版面比较，左右子图仅进行了二维坐标平移居中；该显示调整不改变样本间距离、类别关系或上述评价指标。
+
+\section{讨论}
+视觉文本化的收益依赖支持样本是否覆盖目标的尺度、姿态、染色和局部上下文变化。若支持样本包含错误框、严重遮挡或非代表性背景，视觉 token 也可能把偏差写入提示序列；当新类与基类形态高度相似时，少量支持图像仍不足以完全消除类别混淆。因此，部署时应固定并报告支持集抽样规则、shot 数与随机种子，同时结合置信度校准和支持样本质量筛选。
+
+\section{本章小结}
+本章提出 VisTex-OVLM，通过视觉文本化将支持图像投影到 OVLM 的文本特征空间，使图像提示能够在不改动 OVLM 主体结构的情况下参与提示推理。借助 MSTB 的多尺度映射与 MSF 的多阶段融合，VisTex-OVLM 在标准少样本基准与开放集迁移设置中均取得了显著提升，验证了“以图像补充文本语义、且保持预训练图文对齐”的有效性。

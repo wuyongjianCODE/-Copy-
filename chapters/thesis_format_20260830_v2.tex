@@ -1,0 +1,49 @@
+% Keep chapter.section.subsection numbering and use local parenthesized
+% numbers for subsubsection headings, following the reference dissertation.
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+\renewcommand{\thesubsubsection}{（\arabic{subsubsection}）}
+
+% The BUAA class specifies Song typeface at size 5 for table contents.
+% Reinforce that size and use consistent cell spacing for every ordinary table.
+\AtBeginEnvironment{table}{%
+  \songti\zihao{5}%
+  \setlength{\tabcolsep}{3.5pt}%
+  \renewcommand{\arraystretch}{1.12}%
+}
+\ctexset{
+  subsubsection={
+    format=\zihao{-4}\heiti\raggedright,
+    beforeskip=6pt,
+    afterskip=3pt
+  },
+  paragraph={
+    format=\zihao{-4}\songti\mdseries\raggedright,
+    runin=false,
+    beforeskip=6pt,
+    afterskip=3pt,
+    indent=0pt
+  },
+  subparagraph={format=\zihao{-4}\heiti\raggedright}
+}
+\Abbreviations{\input{chapters/abbreviations_20260830}}
+\makeatletter
+% Accept the department name used on the Chinese cover.
+\let\thesisOriginalTranDepartment\TranDepartment
+\renewcommand{\TranDepartment}[1]{%
+  \ifthenelse{\equal{#1}{生物科学与医学工程学院}}%
+    {\thesisOriginalTranDepartment{生物与医学工程学院}}%
+    {\thesisOriginalTranDepartment{#1}}%
+}
+\renewcommand{\p@subsubsection}{\thesubsection}
+\renewcommand{\denotation}{%
+  \ifdefined\@abbreviations
+    \begingroup
+      \pdfbookmark[0]{缩略语说明}{denotation}
+      \chapter*{缩略语说明}
+      \@abbreviations
+      \ifthenelse{\equal{\@beginright}{off}}{\clearpage}{\clearautopage}
+    \endgroup
+  \fi
+}
+\makeatother

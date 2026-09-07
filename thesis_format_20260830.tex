@@ -1,0 +1,28 @@
+% Load once near the end of the CURRENT main.tex preamble.
+% Do not replace main.tex with an older local copy.
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\ctexset{
+  subsubsection={
+    format=\zihao{-4}\heiti\raggedright,
+    beforeskip=6pt,
+    afterskip=3pt
+  },
+  paragraph={format=\zihao{-4}\heiti\raggedright},
+  subparagraph={format=\zihao{-4}\heiti\raggedright}
+}
+
+% buaa.cls already invokes denotation after the list of tables.
+\Abbreviations{\input{chapters/abbreviations_20260830}}
+\makeatletter
+\renewcommand{\denotation}{%
+  \ifdefined\@abbreviations
+    \begingroup
+      \pdfbookmark[0]{缩略语说明}{denotation}
+      \chapter*{缩略语说明}
+      \@abbreviations
+      \ifthenelse{\equal{\@beginright}{off}}{\clearpage}{\clearautopage}
+    \endgroup
+  \fi
+}
+\makeatother

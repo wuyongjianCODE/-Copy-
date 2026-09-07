@@ -1,0 +1,90 @@
+%% <UTF-8>
+%% 北京航空航天大学学位论文模板版主文件
+%% 编译方式：XeLaTeX 连续编译 2-3 次。
+
+\documentclass[doctor,public,oneside,win]{buaa}
+
+\refcolor{off}
+\beginright{on}
+\emptypagewords{}
+
+% 额外宏包。buaa.cls 已包含 graphicx、float、booktabs、longtable、amsmath 等常用包。
+\usepackage{amssymb}
+\usepackage{colortbl}
+\definecolor{lightgray}{gray}{0.84}
+
+% 论文题目-{中文}{英文}
+\Title{基于视觉语言大模型的医学病理图像无监督检测和分割方法研究}
+{Research on Unsupervised Detection and Segmentation Methods for Medical Pathology Images Based on Vision-Language Large Models}
+
+% 学科、院系、专业和研究方向。若学校最终口径不同，优先在这里修改。
+\Branch{工学}
+\Department{生物科学与医学工程学院}
+\Major{生物医学工程}
+\Feild{医学图像分析与数字病理}
+
+% 导师与学生信息。英文名和具体职称可后续按学院要求再精修。
+\Tutor{许燕}{Yan Xu}{教授}
+\Author{吴永健}{Yongjian Wu}
+\StudentID{BY2110209}
+
+% 中图分类号可后续按最终学科方向调整。
+\CLC{TP391.4}
+
+% 时间节点-{月}{日}{年}，这里先给可编译占位值。
+\DateEnroll{09}{01}{2021}
+\DateGraduate{06}{30}{2026}
+\DateSubmit{06}{14}{2026}
+\DateDefence{06}{30}{2026}
+
+% 摘要-{中文}{英文}
+\Abstract{%
+医学病理图像的目标检测与实例分割是数字病理分析、疗效评估和临床辅助决策的重要基础。然而，病理图像具有目标密集、形态差异细微、跨中心染色与扫描风格差异显著等特点，高质量框标注与实例级标注获取成本高，长期制约了相关方法在开放类别与跨域场景中的可扩展性与泛化能力。围绕上述瓶颈，本文以“尽量减少对昂贵标注的依赖，同时增强模型在开放类别与跨域场景中的泛化能力”为总体目标，面向视觉语言大模型的提示学习机制，系统研究无/弱监督条件下的病理图像检测、分割与数字病理量化方法。
+
+本文首先研究在缺乏目标域检测标注时如何建立可用的细胞核检测入口，提出基于自动属性提示与自训练的零样本细胞核检测方法，通过自动构造医学属性描述并结合目标域自适配，降低对人工检测标注与手工提示模板的依赖。其次，针对病理域中零样本检测对提示工程的敏感性以及密集细胞核易漏检、重叠的问题，提出自动提示框架 AttriPrompter：从无标注病理图像中自动生成形状/颜色属性，并通过同义与“程度”增强扩展描述粒度，进一步按图文相关性对提示序列进行排序以驱动视觉语言检测器获得更稳定的初始定位；在此基础上，引入自训练知识蒸馏迭代优化，以伪标签促进目标域适配并提升无监督检测性能。再次，针对纯文本提示难以稳定表达细粒度视觉差异的问题，提出视觉文本化方法，将少量支持图像映射为语言空间兼容的提示表示，从而以图像提示增强开放词汇感知与跨域推理能力。最后，本文将前述识别能力迁移到临床问题中，构建面向肺鳞癌新辅助免疫化疗后疗效评估的数字病理分析框架，联合量化残余肿瘤负荷和肿瘤周围免疫细胞密度，为疗效评估与预后分析提供辅助信息。
+
+从研究主线看，本文的四项工作体现了从“提示驱动的识别能力构建”到“临床导向的可解释量化”的逐步推进：先以自动属性提示与自训练建立目标域检测入口，再以 AttriPrompter 的“属性生成—增强—排序”自动提示机制与自训练蒸馏提升零样本检测质量与域适配能力，继而以图像提示的视觉文本化机制增强跨域感知，最终将方法落地到具有临床解释价值的数字病理分析任务中。相关研究表明，视觉语言大模型与提示学习为降低病理图像任务标注成本、提升开放场景泛化能力提供了一条具有潜力的技术路线。
+}{%
+Medical image detection and segmentation are fundamental tasks in medical artificial intelligence and serve as essential prerequisites for digital pathology analysis, treatment assessment, and clinical decision support. However, progress in this area is constrained by the high cost of dense annotation, severe domain shifts across institutions and staining protocols, and the difficulty of describing fine-grained medical targets using simple category labels. To address these challenges, this thesis studies unsupervised and weakly supervised medical image detection, segmentation, and digital pathology analysis with the overarching goal of reducing annotation dependence while improving generalization under open-vocabulary and cross-domain settings.
+
+First, this thesis studies how to establish a practical nuclei detection entry point without target-domain detection annotations, and proposes a zero-shot nuclei detection framework based on automatic attribute prompting and self-training, which reduces dependence on manual detection labels and hand-crafted medical prompt templates. Second, to mitigate the sensitivity of zero-shot pathology detection to prompt engineering and address missed/overlapped detections in dense nuclei scenes, this thesis proposes an auto-prompting framework, AttriPrompter, which automatically generates shape/color attributes from unlabeled pathology images, enriches them with synonym and degree-based expansions, and ranks prompt sequences by image–text relevance to produce more reliable initial grounding; furthermore, a self-trained knowledge distillation scheme is introduced to iteratively improve pseudo labels and enhance target-domain adaptation for unsupervised nuclei detection. Third, to overcome the limitation of purely textual prompts in representing subtle visual differences, a visual textualization framework is proposed, which maps a small number of support images into language-space-compatible prompt representations and enables image-prompted detection and segmentation with improved cross-domain perception. Finally, the developed recognition capability is applied to a clinically oriented digital pathology problem, namely AI-based assessment of tumor regression and peritumoral immune cell density for treatment evaluation and prognosis analysis in lung squamous cell carcinoma after neoadjuvant immunochemotherapy.
+
+Taken together, the four studies form a coherent research trajectory from prompt-driven recognition capability construction to clinically interpretable digital pathology quantification. The results suggest that vision-language large models and prompt learning provide a promising pathway for reducing annotation cost and improving generalization in computational pathology.
+}
+
+% 关键字-{中文}{英文}
+\Keyword{医学图像分析，细胞核检测，实例分割，视觉语言预训练，提示学习，数字病理}
+{medical image analysis, nuclei detection, instance segmentation, vision-language pre-training, prompt learning, digital pathology}
+
+% 图表目录
+\Listfigtab{on}
+
+% 主要符号表/缩写表
+% 缩略语表暂不输出；用显式无操作占位避免模板调用未定义内容。
+%\Abbreviations{\relax}
+
+\begin{document}
+
+% 正文。摘要由 buaa 模板自动生成，因此不再输入 chapters/00_abstract.tex。
+\input{chapters/01_intro}
+% 第二章：自动属性提示零样本细胞核检测方法
+\input{chapters/03_zeroshot}
+% 第三章：密集细胞核属性提示增强与知识蒸馏
+\input{chapters/04_attrip}
+% 第四章：视觉文本化图像提示
+\input{chapters/05_vistex}
+% 第五章：肺鳞癌数字病理应用
+\input{chapters/06_lungai}
+% 第六章：总结与展望
+\input{chapters/07_conclusion}
+
+% 参考文献（BibTeX）。buaa.cls 提供 \Bib{bst}{bibfile}，会自动处理目录条目等。
+\Bib{bst/GBT7714-2015}{ref,paper_refs}
+
+% 附录中的学术内容已按研究归属并入第二至第五章。
+
+\input{chapters/11_achievement_buaa}
+\input{chapters/12_acknowledgement_buaa}
+\input{chapters/13_biography_buaa}
+
+\end{document}

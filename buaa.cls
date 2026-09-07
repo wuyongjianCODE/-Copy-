@@ -627,10 +627,9 @@
 {\pdfbookmark[0]{中文封面}{makecovercn}
 
   {\zihao{5} \heiti \noindent
-    \makebox[5\ccwd][s]{中图分类号}：{\bfseries \@clc}%
-    \\
+    \makebox[5\ccwd][s]{中图分类号}：{\bfseries \@clc}\par
     \makebox[5\ccwd][s]{论文编号}：{\bfseries 10006\@studentid}
-    \\
+    \ifthenelse{\equal{\@permission}{public}}{}{\\}
     \TranSecretLevel{\@permission}
   }
 
@@ -737,8 +736,7 @@
 {\pdfbookmark[0]{题目页}{makecoverinner}
 
   {\zihao{5} \heiti \noindent
-    \makebox[5\ccwd][s]{中图分类号}：{\bfseries \@clc}
-    \\
+    \makebox[5\ccwd][s]{中图分类号}：{\bfseries \@clc}\par
     \makebox[5\ccwd][s]{论文编号}：{\bfseries 10006\@studentid}
   }
 

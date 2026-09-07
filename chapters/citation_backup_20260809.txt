@@ -1,0 +1,786 @@
+===== paper_refs.bib BEFORE 2026-08-09 VERIFIED ADDITIONS =====
+﻿% Auto-collected from the original small-paper bibliographies.
+% Generated on 2026-07-22; keys are limited to citations used by the thesis.
+
+@article{chen2022unsupervised,
+  title={Unsupervised Dense Nuclei Detection and Segmentation with Prior Self-activation Map For Histology Images},
+  author={Chen, Pingyi and Zhu, Chenglu and Shui, Zhongyi and Cai, Jiatong and Zheng, Sunyi and Zhang, Shichuan and Yang, Lin},
+  journal={arXiv preprint arXiv:2210.07862},
+  year={2022}
+}
+
+@article{dou2022fiber,
+  title={Coarse-to-fine vision-language pre-training with fusion in the backbone},
+  author={Dou, Zi-Yi and Kamath, Aishwarya and Gan, Zhe and Zhang, Pengchuan and Wang, Jianfeng and Li, Linjie and Liu, Zicheng and Liu, Ce and LeCun, Yann and Peng, Nanyun and others},
+  journal={Advances in neural information processing systems},
+  volume={35},
+  pages={32942--32956},
+  year={2022}
+}
+
+@inproceedings{du2022learning,
+  title={Learning to prompt for open-vocabulary object detection with vision-language model},
+  author={Du, Yu and Wei, Fangyun and Zhang, Zihe and Shi, Miaojing and Gao, Yue and Li, Guoqi},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={14084--14093},
+  year={2022}
+}
+
+@article{everingham2010pascalvoc,
+  title={The pascal visual object classes (voc) challenge},
+  author={Everingham, Mark and Van Gool, Luc and Williams, Christopher KI and Winn, John and Zisserman, Andrew},
+  journal={International journal of computer vision},
+  volume={88},
+  pages={303--338},
+  year={2010},
+  publisher={Springer}
+}
+
+@inproceedings{gupta2019lvis,
+  title={Lvis: A dataset for large vocabulary instance segmentation},
+  author={Gupta, Agrim and Dollar, Piotr and Girshick, Ross},
+  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  pages={5356--5364},
+  year={2019}
+}
+
+@InProceedings{Han_2024_FM-FSOD,
+    author    = {Han, Guangxing and Lim, Ser-Nam},
+    title     = {Few-Shot Object Detection with Foundation Models},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2024},
+    pages     = {28608-28618}
+}
+
+@inproceedings{hsu2021darcnn,
+  title={Darcnn: Domain adaptive region-based convolutional neural network for unsupervised instance segmentation in biomedical images},
+  author={Hsu, Joy and Chiu, Wah and Yeung, Serena},
+  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  pages={1003--1012},
+  year={2021}
+}
+
+@inproceedings{li2022glip,
+  title={Grounded language-image pre-training},
+  author={Li, Liunian Harold and Zhang, Pengchuan and Zhang, Haotian and Yang, Jianwei and Li, Chunyuan and Zhong, Yiwu and Wang, Lijuan and Yuan, Lu and Zhang, Lei and Hwang, Jenq-Neng and others},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={10965--10975},
+  year={2022}
+}
+
+@article{li2022odinw,
+  title={Elevater: A benchmark and toolkit for evaluating language-augmented visual models},
+  author={Li, Chunyuan and Liu, Haotian and Li, Liunian and Zhang, Pengchuan and Aneja, Jyoti and Yang, Jianwei and Jin, Ping and Hu, Houdong and Liu, Zicheng and Lee, Yong Jae and others},
+  journal={Advances in Neural Information Processing Systems},
+  volume={35},
+  pages={9287--9301},
+  year={2022}
+}
+
+@inproceedings{lin2014microsoftCOCO,
+  title={Microsoft coco: Common objects in context},
+  author={Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\'a}r, Piotr and Zitnick, C Lawrence},
+  booktitle={Computer Vision--ECCV 2014: 13th European Conference, Zurich, Switzerland, September 6-12, 2014, Proceedings, Part V 13},
+  pages={740--755},
+  year={2014},
+  organization={Springer}
+}
+
+@article{liu2020pdam,
+  title={Pdam: A panoptic-level feature alignment framework for unsupervised domain adaptive instance segmentation in microscopy images},
+  author={Liu, Dongnan and Zhang, Donghao and Song, Yang and Zhang, Fan and O’Donnell, Lauren and Huang, Heng and Chen, Mei and Cai, Weidong},
+  journal={IEEE Transactions on Medical Imaging},
+  volume={40},
+  number={1},
+  pages={154--165},
+  year={2020},
+  publisher={IEEE}
+}
+
+@inproceedings{liu2022weakly,
+  title={Weakly Supervised Nuclei Segmentation Via Instance Learning},
+  author={Liu, Weizhen and He, Qian and He, Xuming},
+  booktitle={2022 IEEE 19th International Symposium on Biomedical Imaging (ISBI)},
+  pages={1--5},
+  year={2022},
+  organization={IEEE}
+}
+
+@article{liu2023groundingdino,
+  title={Grounding dino: Marrying dino with grounded pre-training for open-set object detection},
+  author={Liu, Shilong and Zeng, Zhaoyang and Ren, Tianhe and Li, Feng and Zhang, Hao and Yang, Jie and Jiang, Qing and Li, Chunyuan and Yang, Jianwei and Su, Hang and others},
+  journal={arXiv preprint arXiv:2303.05499},
+  year={2023}
+}
+
+@inproceedings{luddecke2022clipseg,
+  title={Image segmentation using text and image prompts},
+  author={L{\"u}ddecke, Timo and Ecker, Alexander},
+  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  pages={7086--7096},
+  year={2022}
+}
+
+@inproceedings{ma2023digeo,
+  title={Digeo: Discriminative geometry-aware learning for generalized few-shot object detection},
+  author={Ma, Jiawei and Niu, Yulei and Xu, Jincheng and Huang, Shiyuan and Han, Guangxing and Chang, Shih-Fu},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={3208--3218},
+  year={2023}
+}
+
+@InProceedings{Qiao_2021_defrcn2,
+    author    = {Qiao, Limeng and Zhao, Yuxuan and Li, Zhiyuan and Qiu, Xi and Wu, Jianan and Zhang, Chi},
+    title     = {DeFRCN: Decoupled Faster R-CNN for Few-Shot Object Detection},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    month     = {October},
+    year      = {2021},
+    pages     = {8681-8690}
+}
+
+@article{qin2022medical,
+  title={Medical image understanding with pretrained vision language models: A comprehensive study},
+  author={Qin, Ziyuan and Yi, Huahui and Lao, Qicheng and Li, Kang},
+  journal={arXiv preprint arXiv:2209.15517},
+  year={2022}
+}
+
+@inproceedings{radford2021clip,
+  title={Learning transferable visual models from natural language supervision},
+  author={Radford, Alec and Kim, Jong Wook and Hallacy, Chris and Ramesh, Aditya and Goh, Gabriel and Agarwal, Sandhini and Sastry, Girish and Askell, Amanda and Mishkin, Pamela and Clark, Jack and others},
+  booktitle={International conference on machine learning},
+  pages={8748--8763},
+  year={2021},
+  organization={PMLR}
+}
+
+@inproceedings{redmon2016you,
+  title={You only look once: Unified, real-time object detection},
+  author={Redmon, J},
+  booktitle={Proceedings of the IEEE conference on computer vision and pattern recognition},
+  year={2016}
+}
+
+@article{ren2016faster,
+  title={Faster R-CNN: Towards real-time object detection with region proposal networks},
+  author={Ren, Shaoqing and He, Kaiming and Girshick, Ross and Sun, Jian},
+  journal={IEEE transactions on pattern analysis and machine intelligence},
+  volume={39},
+  number={6},
+  pages={1137--1149},
+  year={2016},
+  publisher={IEEE}
+}
+
+@inproceedings{wang2019metadet,
+  title={Few-shot adaptive faster r-cnn},
+  author={Wang, Tao and Zhang, Xiaopeng and Yuan, Li and Feng, Jiashi},
+  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  pages={7173--7182},
+  year={2019}
+}
+
+@article{wang2020frustratingly,
+  title={Frustratingly simple few-shot object detection},
+  author={Wang, Xin and Huang, Thomas E and Darrell, Trevor and Gonzalez, Joseph E and Yu, Fisher},
+  journal={arXiv preprint arXiv:2003.06957},
+  year={2020}
+}
+
+@inproceedings{wang2022freesolo,
+  title={Freesolo: Learning to segment objects without annotations},
+  author={Wang, Xinlong and Yu, Zhiding and De Mello, Shalini and Kautz, Jan and Anandkumar, Anima and Shen, Chunhua and Alvarez, Jose M},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={14176--14186},
+  year={2022}
+}
+
+@inproceedings{wang2023cut,
+  title={Cut and learn for unsupervised object detection and instance segmentation},
+  author={Wang, Xudong and Girdhar, Rohit and Yu, Stella X and Misra, Ishan},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={3124--3134},
+  year={2023}
+}
+
+@InProceedings{wu2023zeroshot,
+author="Wu, Yongjian
+and Zhou, Yang
+and Saiyin, Jiya
+and Wei, Bingzheng
+and Lai, Maode
+and Shou, Jianzhong
+and Fan, Yubo
+and Xu, Yan",
+editor="Greenspan, Hayit
+and Madabhushi, Anant
+and Mousavi, Parvin
+and Salcudean, Septimiu
+and Duncan, James
+and Syeda-Mahmood, Tanveer
+and Taylor, Russell",
+title="Zero-Shot Nuclei Detection via Visual-Language Pre-trained Models",
+booktitle="Medical Image Computing and Computer Assisted Intervention -- MICCAI 2023",
+year="2023",
+publisher="Springer Nature Switzerland",
+address="Cham",
+pages="693--703",
+isbn="978-3-031-43987-2"
+}
+
+@inproceedings{xu2023mqdet,
+  title={Multi-modal queried object detection in the wild},
+  author={Xu, Yifan and Zhang, Mengdan and Fu, Chaoyou and Chen, Peixian and Yang, Xiaoshan and Li, Ke and Xu, Changsheng},
+  booktitle={Proceedings of the 37th International Conference on Neural Information Processing Systems},
+  pages={4452--4469},
+  year={2023}
+}
+
+@article{zhang2022metaDETR1,
+  title={Meta-detr: Image-level few-shot detection with inter-class correlation exploitation},
+  author={Zhang, Gongjie and Luo, Zhipeng and Cui, Kaiwen and Lu, Shijian and Xing, Eric P},
+  journal={IEEE transactions on pattern analysis and machine intelligence},
+  volume={45},
+  number={11},
+  pages={12832--12843},
+  year={2022},
+  publisher={IEEE}
+}
+
+@article{zhang2023devit,
+  title={Detect every thing with few examples},
+  author={Zhang, Xinyu and Wang, Yuting and Boularias, Abdeslam},
+  journal={arXiv preprint arXiv:2309.12969},
+  year={2023}
+}
+
+
+
+===== chapters/01_intro.tex BEFORE CITATION ADDITIONS =====
+\chapter{绪论}
+
+\section{研究背景与意义}
+医学图像检测、分割与量化分析是医学人工智能研究中的核心内容。对于病理图像而言，细胞核检测与实例分割直接关系到组织结构理解、细胞计数、肿瘤微环境分析和后续临床量化建模；对于放射与病理融合分析而言，可靠的区域定位和结构提取又是疗效评估、风险分层和预后预测的重要基础。可以说，前端识别能力的稳定性在很大程度上决定了后续医学分析任务的上限。
+
+然而，这一领域长期存在两个互相交织的难题。其一是监督信号昂贵且稀缺。医学图像尤其是病理图像中的实例级标注，需要专业病理医师或经过长期训练的研究人员完成，时间成本与经济成本都很高。其二是目标域迁移困难。同一疾病在不同中心、不同切片制备流程、不同染色和不同扫描仪条件下，会表现出明显不同的数据分布；即使模型在单一公开数据集上表现良好，一旦进入真实场景，也常常面临性能下降的问题。
+
+近年来，大规模视觉语言预训练模型的兴起为解决上述问题提供了新的可能。一方面，这类模型具备一定的开放词汇识别能力，使得“未见类别识别”和“少样本适配”不再完全依赖人工标注；另一方面，提示学习机制使模型有机会在结构保持相对稳定的前提下，通过较少附加参数实现目标域迁移。这些新进展为医学图像分析带来了新的方法论转向，即从传统强监督闭集学习逐步走向弱监督、无监督和开放场景建模。
+
+本文的研究动机来源于一个持续演化的认识：虽然医学图像强监督标注昂贵，但目标结构、跨模态知识以及少量示例本身蕴含着可被模型利用的先验。换言之，昂贵人工标注并不是唯一的监督来源，合理设计的伪标签、自训练、文本提示、图像提示和结构先验都可能成为替代性学习信号。
+
+沿着这一思路，本文将研究问题组织为一条从“识别入口构建”走向“临床量化解释”的主线：首先，在缺乏目标域检测标注时，如何借助视觉语言大模型的开放词汇能力与自动提示构造建立零样本细胞核检测入口？其次，当零样本病理检测对手工提示工程高度敏感、且密集细胞核易出现漏检与重叠时，如何通过自动提示机制生成更稳定的语义入口，并结合自训练迭代实现目标域适配？再次，当纯文本提示难以稳定表达细粒度医学视觉差异时，如何进一步让图像提示以兼容形式进入视觉语言模型，以增强跨域感知与推理能力？最后，当前端识别能力逐步建立后，如何将其组织为可解释、可统计的数字病理指标，用于疗效评估与预后分析？
+
+\section{国内外研究现状}
+\subsection{医学图像检测与分割研究的总体脉络}
+医学图像分析的发展大体经历了从手工特征、浅层机器学习到深度学习，再到预训练大模型和提示学习的几个阶段。早期方法主要依赖阈值分割、区域生长、活动轮廓模型、形态学算子以及人工设计纹理特征来完成病灶或组织结构提取。这类方法的优点是可解释性强、实现简单，但它们通常只能适用于成像条件较为稳定、目标形态变化较小的任务。一旦遇到病理染色变化、扫描噪声增强或者目标边界模糊等问题，传统方法往往很难保持稳定性能。
+
+随着卷积神经网络的成功应用，医学图像分析逐渐进入深度学习阶段。以 U-Net 为代表的编码器--解码器结构推动了像素级分割任务的快速发展，Mask R-CNN 及其变体则推动了实例级分割的发展。对于细胞核检测与分割任务而言，深度学习方法显著提高了边界恢复能力和复杂背景下的识别能力。然而，这一阶段的方法几乎都建立在“存在足够强监督标注”的前提之上，也因此把问题转移到了数据构建成本上。医学数据的标注瓶颈并没有因为模型变强而消失，反而由于模型更依赖大规模训练而变得更加突出。
+
+近几年，视觉语言预训练和基础模型的发展又把医学图像分析推入新的阶段。研究重点开始从“如何在固定数据集上逼近最优精度”转向“如何减少对强监督标注的依赖”“如何在开放类别和跨域场景中泛化”以及“如何利用文本、图像示例和外部知识协助推理”。本文所关注的弱监督、零样本、图像提示和数字病理分析问题，本质上都处在这一新阶段的演进链条中。
+
+\subsection{弱监督与无监督医学图像分割}
+\subsubsection{弱监督分割的基本思想}
+弱监督分割的基本目标是利用比像素级标注更廉价的监督信息近似恢复目标区域。常见弱监督信号包括图像级标签、点标注、框标注、涂鸦标注以及部分伪标签。不同监督形式对应不同的信息上限：图像级标签最廉价，但只告诉模型某类目标是否存在；点和框能提供更明确的空间约束，但边界信息仍然缺失；涂鸦比点和框更接近真实轮廓，但人工成本也更高。如何在“监督强度”和“标注成本”之间取得平衡，是弱监督分割长期关注的问题。
+
+在自然图像领域，类激活图、区域提案、条件随机场后处理和自训练策略构成了图像级弱监督分割的主流技术路线。即先通过分类网络获得目标的粗激活分布，再利用后处理或迭代优化方式把粗热图转化为较完整的掩码。在医学图像场景中，这一思路同样具有启发性，但直接照搬并不总是有效。医学对象尤其是细胞核目标具有尺度小、密度高、粘连严重等特点，使得自然图像中的弱监督前景恢复策略很难直接实现高质量实例边界提取。
+
+\subsubsection{病理图像中的特殊困难}
+病理图像弱监督分割面临的困难具有鲜明的结构性。首先，细胞核等目标往往尺寸小、数量多，相互之间距离很近，一旦伪标签稍微膨胀，就会把多个目标错误地连在一起。其次，病理图像中的颜色和纹理受染色和扫描条件影响显著，不同样本之间的成像风格变化容易导致弱监督定位结果不稳定。再次，病理图像中存在大量与目标外观接近的背景结构，这些结构往往会在弱监督阶段被错误激活，造成伪标签污染。
+
+因此，病理图像中的弱监督分割方法通常不能只停留在“恢复前景区域”层面，而必须进一步思考如何形成实例级结构感知。这也是为什么细胞核分割工作中常常会显式引入边界分支、距离变换分支或中心点约束等结构先验。类似地，本文后续针对密集细胞核场景中的漏检与重叠问题，也引入了基于伪标签迭代的自训练/蒸馏机制，以在弱监督信号有限的条件下逐步提升结构化定位质量。
+
+\subsubsection{伪标签与自训练}
+伪标签和自训练在弱监督与半监督分割中占据重要位置。其基本思想是先利用现有模型生成高置信预测，再把这些预测当作新监督信号继续训练模型。成功的关键在于：伪标签既不能过于保守，否则覆盖率不足；也不能过于激进，否则错误会在迭代中不断放大。在医学图像中，这个平衡更难把握，因为目标形态复杂且域偏移明显。
+
+已有研究证明，自训练在医学图像中并非简单的“多跑几轮”策略，而需要与结构先验、分支解耦或多任务约束结合。对于本文的研究主线而言，伪标签与自训练并不是一个孤立技术点，而是一种贯穿多篇工作的核心思想：从弱监督分割中的伪标签迭代优化，到零样本检测后的目标域自适配（自训练/蒸馏），再到图像提示学习中的少样本引导，都能看到“先构造一个可接受起点，再通过数据反馈逐步提升”的共通逻辑。
+
+\subsection{细胞核检测与实例分割研究}
+\subsubsection{检测、分割与联合建模}
+细胞核分析任务通常分为三类：核检测、语义分割和实例分割。核检测强调目标位置，适合计数和密度估计；语义分割强调前景区域覆盖，适合估计总体核面积；实例分割则要求区分每个独立核目标，最适合后续的形态统计和组织微环境分析。三类任务并非彼此割裂，而是存在显著内在联系。一个好的实例分割模型往往隐含具有检测能力，一个好的检测器也通常能为实例学习提供较稳定候选区域。
+
+在病理图像中，许多方法试图将检测与分割联合建模。例如，有的工作先进行核中心点检测，再以中心点为引导恢复边界；有的工作同时预测前景图、边界图和距离图，以实现实例拆分；还有的工作直接通过 proposal-based 结构完成实例掩码预测。不同方法的差异在于对实例结构的建模方式不同，但它们都说明一件事：对于高密度细胞核任务，仅靠单一前景预测往往不够，必须引入额外结构信息。
+
+\subsubsection{跨数据集与跨域问题}
+细胞核数据集之间的差异很大。不同组织来源、不同切片质量、不同染色方案和不同扫描仪都会导致目标外观变化。一个在单一公开 benchmark 上表现优异的模型，进入真实跨域场景后往往会遇到性能下降。因此，单纯追求单数据集分数并不足以说明方法的实用性。如何在有限目标域支持样本甚至无支持样本条件下增强泛化能力，已经成为细胞核分析研究的重要方向。
+
+这一点与本文后续关于跨域评测（domain shift）、少样本支持提示（few-shot prompting）以及“冻结主干、仅通过提示适配”的直测设定密切相关。作者之所以反复强调源域训练、目标域少量支持样本提示与不进行目标域大规模微调，是因为细胞核分析任务的实际挑战并不仅仅是“在一个数据集上做得更高”，而是“面对新域时还能否工作”。从学位论文角度看，这种问题意识也使得全文研究比单纯追求基准分数更具完整性。
+
+\subsection{视觉语言预训练模型及其医学迁移}
+\subsubsection{视觉语言预训练的基本范式}
+视觉语言预训练模型通过大规模图文对构建跨模态共享语义空间。CLIP 通过图像编码器和文本编码器的对比学习训练获得强分类迁移能力，BLIP 在此基础上进一步增强生成与理解能力，而 GLIP 则尝试把语言提示直接融入目标检测框架，使检测器具备开放词汇识别能力。这一系列模型的重要意义在于，它们使图像理解不再局限于固定类别表，而可以借助文本描述扩展到未见对象。
+
+在自然图像领域，开放词汇检测的价值已经得到广泛验证。但在医学图像领域，这一能力并不能直接迁移。首先，医学图像的许多概念在大规模通用图文语料中本来就稀缺；其次，医学对象往往依赖局部结构模式而非简单语义标签；再次，医学任务常常需要非常稳定的定位能力，而非仅仅粗粒度识别。因此，视觉语言模型迁移到医学场景时，需要配合新的提示机制、目标域自适应机制和可能的结构先验。
+
+\subsubsection{开放词汇与零样本能力的局限}
+尽管视觉语言模型具备开放词汇能力，但在医学任务中，单靠文本类名通常不足以支撑高质量检测。例如，同样是“细胞核”，不同病理环境下的核在大小、形状、染色情况和周边背景方面可能完全不同。简单提示无法表达这种差异，甚至会导致模型偏向自然图像语义空间中的错误对象。因此，零样本医学检测如果要真正成立，必须在提示构造和目标域适配上做更细致设计。
+
+本文第四章正是在这一局限之上提出自动属性提示构造。其出发点不是否认视觉语言模型的价值，而是承认“医学类别语义不足”的现实，然后试图以属性、描述和自训练的方式弥补这一不足。从相关工作回顾角度看，这使得本文不是简单使用现成大模型，而是在其基础上提出新的迁移方法。
+
+\subsection{提示学习的发展与图像提示研究}
+\subsubsection{文本提示学习}
+提示学习最早主要体现为对文本模板的设计。研究者通过改变 prompt phrasing 来影响模型对类别的理解，例如“a photo of a dog”和“this is a dog”在 CLIP 类模型中可能带来不同效果。随着研究发展，更多工作开始引入可学习 prompt token，以代替人工设计模板。对医学图像而言，文本提示学习具有明显吸引力，因为它不需要大规模改动模型结构，却可以借助预训练语义进行目标域适配。
+
+不过，医学场景中的文本提示存在两个根本局限。第一，语言本身未必能精确表达细粒度视觉差异。第二，许多医学任务对形态和组织结构极为敏感，而这些信息天然更容易通过视觉示例表达，而非通过词语表达。因此，仅依赖文本 prompt 往往不足以满足复杂医学场景需求。
+
+\subsubsection{图像提示与多模态提示}
+图像提示的核心思想是让支持图像本身参与推理，以补充纯文本提示不足。已有工作在通用目标检测、分割和 few-shot 学习中表明，少量支持样本可以显著改善模型对新类别的感知能力。但如何让图像提示与原有视觉语言预训练结构兼容，仍是一个开放问题。若处理不当，图像提示可能破坏原有图文对齐能力，导致模型难以稳定收敛。
+
+在医学场景下，图像提示的潜力更加明显。一个病理专家往往只需要看几张代表性示例就能理解某类目标的大致外观，而图像提示恰好模拟了这种“示例式知识传递”过程。本文第五章的视觉文本化工作，就是对这一思路的系统展开：既不放弃文本提示提供的语义框架，又引入图像提示补充细粒度结构信息。
+
+\subsection{数字病理分析与可解释医学人工智能}
+\subsubsection{从识别到量化}
+数字病理研究正在从“自动识别病灶”向“自动量化病理表型”演化。前者关注的是目标是否被正确找出，后者关注的是目标识别后能否形成对医生有意义的统计指标。例如，肿瘤残留比例、免疫细胞密度、肿瘤边界结构变化以及细胞空间共定位模式，都属于后者关心的内容。
+
+这种演化意味着，前端检测和分割结果的意义不再只体现为 benchmark 分数，而是要进一步考虑结果是否足以支持后续统计分析与临床解释。因此，一个看似精度很高但结构不稳定的模型，未必真的适合数字病理分析；相反，一个在临床关键指标上更稳定、更可解释的模型，可能更有实际应用价值。
+
+\subsubsection{临床结局建模}
+在肿瘤研究中，治疗后病理切片提供了非常丰富的预后信息。除了传统的病理缓解程度评估，肿瘤周围免疫细胞的数量、密度和空间分布也逐渐被认为与治疗反应和生存结局有关。AI 模型若能稳定识别并量化这些指标，就能为更细致的风险分层和个体化治疗提供辅助。
+
+本文第六章的肺鳞癌工作正是建立在这一思想之上。它使得前几章偏方法论的研究，有了一个自然的应用收束点，也让整篇学位论文的价值不局限于算法创新，而延伸到临床解释和数字病理转化。
+
+\section{研究内容与主要贡献}
+围绕上述主线，本文主要开展以下四方面研究。
+
+第一，研究视觉语言大模型在细胞核检测中的迁移问题，提出基于自动属性提示与自训练的零样本细胞核检测方法。该工作解决的是“缺乏目标域检测标注时如何构造可辨识的医学提示，并将开放词汇能力转化为目标域可用的检测性能”。
+
+第二，针对零样本检测对提示工程的敏感性以及密集细胞核场景下的漏检、重叠问题，提出自动提示框架 AttriPrompter：从无标注病理图像中自动生成形状/颜色属性，并通过同义与“程度”增强扩展描述粒度，进一步按图文相关性对提示序列排序以获得更可靠的初始定位；在此基础上，引入自训练知识蒸馏迭代优化，以伪标签驱动目标域适配并提升无监督检测性能。该工作解决的是“如何在无需人工提示模板与检测标注的条件下，自动构造高质量提示并稳定提升零样本检测效果”。
+
+第三，研究图像提示与文本提示的统一建模与注入机制，提出视觉文本化方法，通过将少量支持图像映射到语言空间兼容的提示表示，增强模型对细粒度差异与跨域风格变化的感知能力。该工作解决的是“当文本描述不足时，如何让图像示例以提示的形式直接参与推理”。
+
+第四，将上述方法体系进一步应用于肺鳞癌新辅助免疫化疗后的数字病理分析，构建面向残余肿瘤负荷与肿瘤周围免疫细胞密度的量化框架，并通过统计分析探索其与疗效及预后之间的关系。该工作解决的是“如何将检测、分割结果转化为临床可解释指标并形成分析闭环”。
+
+本文的主要贡献体现在以下四个方面。其一，提出了基于自动属性提示与自训练的零样本细胞核检测方法，为医学无标注检测提供了可扩展的实现路径。其二，提出了自动提示框架 AttriPrompter，通过“属性生成—增强—排序”自动构造高质量提示序列，并结合自训练知识蒸馏提升密集细胞核场景下的零样本检测稳定性与目标域适配能力。其三，提出了视觉文本化方法，将图像提示映射到语言空间，从而增强模型在跨域与细粒度目标场景中的感知能力。其四，构建了面向肺鳞癌疗效评估的数字病理分析框架，将前端识别结果进一步组织为具有临床解释意义的量化指标并开展统计分析。
+
+\section{论文组织结构}
+本文的技术路线可以概括为“从提示驱动的识别能力构建到临床导向的可解释量化”的逐步推进：前期工作面向无检测标注场景，重点解决自动提示构造与目标域自适配问题；中期工作进一步面向未见类别与跨域分布偏移，重点解决结构先验注入与提示融合问题；后期工作将上述识别能力整合到临床导向的数字病理链条中，强调可解释指标构建与统计验证。
+
+从建模角度看，本文的方法体系有三个共同特点。第一，强调尽量减少对昂贵强监督标注的依赖。第二，强调最大化利用视觉语言预训练带来的跨模态先验，并通过提示机制进行轻量适配。第三，强调输出结果的可解释性，使方法不仅服务于 benchmark 指标，也服务于真实数字病理分析需求。
+
+全文共分六章。第一章为绪论，介绍研究背景、动机、内容和结构安排。第二章总结相关研究基础，包括视觉语言预训练、提示学习、医学检测与分割以及数字病理分析。第二章介绍自动属性提示与自训练联合的零样本细胞核检测方法。第二章介绍自动提示框架 AttriPrompter 及其自训练知识蒸馏的迭代优化方法。第二章介绍视觉文本化框架及其图像提示驱动的检测与分割方法。第二章介绍面向肺鳞癌疗效评估的数字病理量化分析框架。第二章对全文进行总结并讨论后续研究方向。
+
+
+===== chapters/06_lungai.tex BEFORE CITATION ADDITIONS =====
+\chapter{面向肺鳞癌疗效评估的数字病理分析方法研究}
+
+\section{引言}
+新辅助免疫联合化疗已经成为可切除非小细胞肺癌的重要治疗方式，但术后病理评估仍面临两类相互关联的困难。比如在CheckMate-816、KEYNOTE-671等多项临床试验中，其病理缓解率明显高于单纯化疗[1–4]，然而，治疗反应评估和风险分层仍面临挑战，尤其是未达到病理完全缓解的患者。CheckMate-816的长期随访结果显示，non-pCR患者约占全部接受治疗者的75\%，其5年总生存率仅为55.7\%，而pCR患者为95.3\%，凸显了这一主要人群的高风险属性。当前以RVT为代表的病理评估框架虽能提供重要预后信息。
+RVT 能够反映肿瘤退缩程度，却不能完整表征新辅助免疫化疗后形成的肿瘤--免疫生态。尤其是肿瘤边界附近的中性粒细胞聚集与较大空间范围内的淋巴细胞浸润，可能分别代表局部免疫抑制和持续抗肿瘤免疫，但这些空间表型在常规病理实践中难以稳定量化。以RVT为代表的病理评估框架在临床使用时主要面临以下两个主要问题：
+第一，残余活性肿瘤（residual viable tumor, RVT）需要病理医师在多张全切片图像（whole-slide image, WSI）上综合估计活性肿瘤、坏死和治疗后间质的比例，耗时较长且容易受到观察者经验和区域异质性的影响。第二，病理完全缓解（pathological complete response, pCR）和主要病理缓解（major pathological response, MPR）均以离散阈值概括连续的治疗反应谱，难以进一步区分具有残余肿瘤患者的术后风险。
+
+此外，仅关注肿瘤消退的基于 RVT 的指标并不能完全捕捉新辅助免疫化疗引起的复杂的免疫-肿瘤相互作用。肿瘤微环境（TME）特征提供了额外的预后信息。免疫浸润的丰度或模式，包括中性粒细胞、淋巴细胞和基质反应，与肺癌的治疗敏感性和生存相关\cite{wu2024coldhot,teijeira2021il8,miao2024neutrophilsnsclc,hu2025neutrophilpd1}。先前的研究表明，富含淋巴细胞的“热”肿瘤与改善的免疫治疗反应相关\cite{wu2024coldhot}，而肿瘤相关的中性粒细胞则导致免疫逃避和不良预后\cite{teijeira2021il8,miao2024neutrophilsnsclc,hu2025neutrophilpd1}。然而，由于其劳动密集型性质和有限的重复性，这些微环境特征在病理实践中并未被常规量化，并且它们在新辅助免疫化疗环境中的预后相关性，特别是在肺鳞状细胞癌（LUSC）中，仍未得到充分定义。
+基于人工智能 (AI) 的数字病理学的最新进展使得能够对全切片图像 (WSI) 中的 RVT 和 TME 特征进行可重复、高通量的量化。AI 衍生的 RVT 已证明与仅接受新辅助免疫治疗的患者的病理学家评估和预后价值高度一致\cite{dacic2024lcmc3}。然而，目前尚不清楚人工智能衍生的指标在新辅助免疫化疗（现在是主要的新辅助策略）的背景下是否保留预测效用，以及这些定量特征如何与淋巴结状态等关键临床变量相互作用。与此同时，越来越多的证据表明，TME 内肿瘤和基质免疫细胞的空间组成和组织可以使用基于深度学习的病理模型进行定量表征，并作为肺腺癌的独立预后因素\cite{wang2020compstaining,wang2019convpath}。值得注意的是，基于人工智能的全玻片分析仪能够识别癌症区域、间质和关键 TME 成分，包括肿瘤浸润淋巴细胞、成纤维细胞和内皮细胞，能够描绘 TKI 耐药后 EGFR 突变 NSCLC 的动态微环境变化，并预测随后对基于免疫疗法的治疗的反应\cite{bang2025egfrspatial}。这些发现强调了人工智能衍生的空间 TME 特征在告知免疫治疗反应方面具有更广泛的相关性，并促使它们整合到基于 RVT 的生存模型中，特别是对于非 pCR 人群。
+因此，利用国家癌症中心的两个队列（NCC\_Cohort1 和 NCC\_Cohort2）的数据集以及山西省肿瘤医院（SXCH）和深圳肿瘤医院（SZCH）的其他外部队列的数据集，我们开发了一个多尺度 AI 驱动的病理学框架，该框架可以同时量化接受新辅助免疫化疗治疗的 LUSC WSI 中的 RVT 与瘤周免疫细胞密度。这种综合方法旨在加强术后风险分层，特别是非 pCR 患者，并为辅助治疗决策和临床监测提供更有生物学依据的基础。
+
+
+本章以接受新辅助免疫化疗的肺鳞状细胞癌（lung squamous cell carcinoma, LUSC）患者为研究对象，建立一套模拟病理医师多尺度阅片过程的数字病理框架。该框架首先在 WSI 上识别肿瘤床、活性肿瘤、坏死和正常组织，计算连续的 AI-RVT；随后利用视觉语言基础模型完成多类细胞检测，并按细胞到肿瘤边界的距离构建空间免疫表型；最后分别评价 AI-RVT、单一空间细胞特征及联合免疫表型与无病生存（disease-free survival, DFS）和总生存（overall survival, OS）的关系。与直接输出生存风险的黑箱模型不同，本研究保留区域、细胞类别、空间距离和临床终点之间的对应关系，使每一级结果均可由病理医师追溯核验。
+
+\section{研究设计与数据准备}
+\subsection{多中心数据集准备}
+研究数据来自国家癌症中心（National Cancer Center, NCC）、山西省肿瘤医院（Shanxi Cancer Hospital, SXCH）和深圳市肿瘤医院（Shenzhen Cancer Hospital, SZCH），总体设计如图 \ref{fig:lung_study_design} 所示。
+
+训练数据队列 NCC\_Cohort1 包含 20 例患者的 251 张病理医师精细标注 WSI，用于训练多尺度区域分类器和构建域内细胞检测数据。外部验证数据队列 SXCH 包含 28 例患者的 192 张 WSI，用于评价 AI-RVT 与病理医师视觉评估结果 VIS-RVT 在切片级和患者级的一致性。独立测试数据由 NCC\_Cohort2 的 51 例患者和 SZCH 的 32 例患者构成；在预后分析中进一步合并 NCC\_Cohort1 的 20 例患者，最终形成 103 例患者的生存队列。该队列中 78 例为 non-pCR 患者，占 75.7\%，是术后风险分层的重点对象。具有完整患者级 VIS-RVT 和 AI-RVT 的 84 例患者被纳入 MPR 一致性分析。
+数据集预处理细节：医生使用openslide工具手动在WSI图片文件上进行标注，由于一般的WSI图都十分庞大，长宽一般为数十万像素到上百万像素尺度，进行大范围内的逐个的实例级标注是不现实的，过于耗费人力和时间。实验医生只进行两种标注任务：1.以整张WSI的缩略图为依据，在整张WSI图内画圈方式圈出多个区域，然后标明每个区域具体的区域类型（比如瘤床区，坏死区，肿瘤区） 2.对采样出的大量小范围的病理切片区域，进行细致的逐实例标注。标注任务2与前一个标注任务相比，更要求细致、精准、无遗漏，而不苛求过大的实例量。前期实验中发现对于标注任务2以及基于它的细胞检测模型训练，只需要每类数百甚至数十个实例就足以取得比较满意的最终检测效果。
+
+\subsection{区域级标注与逐实例标注的差异}
+由于一般的 WSI 图像十分庞大，长宽通常达到数十万像素甚至上百万像素尺度，在整张切片上逐个完成实例级标注并不现实，会消耗大量人力和时间。因此，实验医生通常需要区分两类标注任务。第一类是在整张 WSI 的缩略图上，以闭合曲线或多边形圈出若干区域，并为每个区域指定区域类型，例如肿瘤床区、坏死区或活性肿瘤区。第二类是对采样得到的大量小范围病理图块进行细致的逐实例标注，为每一个可辨认的细胞或细胞核勾画独立轮廓。与区域级标注相比，第二类任务要求更细致、精准并尽量避免遗漏，但不以覆盖尽可能多的实例为目标。前期实验表明，对于逐实例标注及基于这些标注训练的细胞检测模型，每一类只需要数百个甚至数十个质量可靠的实例，通常就能够取得较为稳定的最终检测效果。
+
+两类标注的差异会直接影响检测模型所接收的监督信号。图 \ref{fig:annotation_task_comparison} 给出了同一类病理图块的对照示例，其中红框 1 内的绿色实例来自 GeoJSON 标注中的“淋巴细胞（Lymphocyte）”类别。A 中这些细胞虽然在图像中客观存在，但没有全部被逐一勾画；B 则对相应细胞补充了独立的实例轮廓。对于采用实例检测或实例分割损失的训练流程，如果未标注区域被直接编码为背景或参与负样本匹配，A 中未被勾画的淋巴细胞就可能被模型当作背景，从而同时产生漏检倾向和前景--背景监督冲突。换言之，A 并不表示这些细胞是真实阴性，而是表示监督信息不完整；B 才能为模型提供更明确的“一个细胞对应一个实例”的正向约束。因此，本研究在构建细胞检测训练集时优先使用小图块中的高质量逐实例标注，并将区域级标注主要用于 WSI 组织区域分类和多尺度上下文建模。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/annotation_task_comparison.png}
+  \caption{两种实例标注完整性对比}
+  \label{fig:annotation_task_comparison}
+\end{figure}
+图~\ref{fig:annotation_task_comparison} 中，A 表示未完成逐实例标注的版本，B 表示完成逐实例标注的版本；红框 1 内的绿色轮廓标出淋巴细胞实例。A 中可见细胞未被全部转化为独立实例轮廓，若训练流程将未标注区域作为背景处理，可能造成前景细胞与背景标签之间的监督冲突；B 为细胞检测模型提供了更完整的实例级正样本。
+
+
+
+\subsection{标注完整性对模型评价的定量影响}
+
+为了定量说明逐实例标注完整性对模型评价的影响，本研究进一步整理同一肺部病理验证任务的两批实验结果。图中 A 表示未完成逐实例补充的标注状态，B 表示经过补充、实例覆盖更完整的标注状态。这里的 A/B 是对标注版本的区分，采用的模型是一致的，都是GLIP-L带有分割头和检测头的标准版本。
+
+表~\ref{tab:annotation_ab_full_metrics} 汇总了两批结果的主要指标。与 A 相比，B 的 Dice、AJI、Diceobj、PQ、F1 和 mAP 均更高。也就是说，在这组实际历史评测中，补充逐实例标注后，模型输出与金标准之间的实例匹配和整体检测统计更加充分；若只观察单一像素级指标，则可能低估标注完整性带来的影响。
+
+\begin{table}[htbp]
+  \centering
+  \caption{标注完整性对总体性能的影响}
+  \label{tab:annotation_ab_full_metrics}
+  \scriptsize
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{llrrrrrrr}
+    \toprule
+    版本 & 标注含义 & 图块数 & Dice & AJI & Diceobj & PQ & F1 & mAP \\
+    \midrule
+    A & 未完成逐实例补充 & 8 & 0.709 & 0.433 & 0.710 & 0.328 & 0.668 & 0.2884 \\
+    B & 补充完整逐实例标注 & 8 & 0.766 & 0.450 & 0.750 & 0.350 & 0.748 & 0.3750 \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+为了更直观地呈现差异，表~\ref{tab:annotation_ab_delta} 进一步给出了 B 相对于 A 的绝对变化量和相对变化率。B 的 Dice 提高了 0.057，Diceobj 提高了 0.040，AJI 提高了 0.017，PQ 提高了 0.022，F1 提高了 0.080，mAP 提高了 0.0866；其中 mAP 的相对提升达到约 30.0\%，F1 的相对提升约为 12.0\%。这些变化说明，遗漏的细胞实例不仅会减少监督信息，还会改变预测结果与真实实例之间的匹配关系，使评价结果对细胞的检出能力和实例对应关系更加敏感。
+
+\begin{table}[htbp]
+  \centering
+  \caption{补全实例标注前后的指标变化}
+  \label{tab:annotation_ab_delta}
+  \small
+  \begin{tabular}{lrrrr}
+    \toprule
+    指标 & A & B & 绝对变化（B-A） & 相对变化 \\
+    \midrule
+    Dice & 0.709 & 0.766 & +0.0570 & +8.0\% \\
+
+    AJI & 0.433 & 0.450 & +0.0170 & +3.9\% \\
+    Diceobj & 0.710 & 0.750 & +0.0400 & +5.6\% \\
+    PQ & 0.328 & 0.350 & +0.0220 & +6.7\% \\
+    F1 & 0.668 & 0.748 & +0.0800 & +12.0\% \\
+    mAP & 0.2884 & 0.3750 & +0.0866 & +30.0\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+上述结果与前文的机制分析相互印证：在 A 中，图像中客观存在但没有被逐一勾画的淋巴细胞可能在训练或评价过程中被当作背景，因而造成前景与背景监督信号混杂；在 B 中，相应淋巴细胞被补充为独立实例，模型输出与金标准之间的实例级对应关系得到更完整的统计。本文将表~\ref{tab:annotation_ab_full_metrics} 和表~\ref{tab:annotation_ab_delta} 作为标注完整性影响的实验证据和支持性分析，不将其夸大为严格控制所有模型权重变量的因果实验。它至少表明：在相同验证数据规模和评价口径下，标注版本的完整程度足以带来明显的性能差异；因此，后续模型训练应优先采用高质量、少遗漏的逐实例标注，并将区域级标注与实例级标注严格区分。
+
+\section{基于视觉语言模型的细胞检测方法}
+\subsection{渐进式预训练与精调}
+
+目标队列中的细胞精细标注数量有限，且不同公共病理数据集的标签空间并不一致。为避免直接在少量目标域样本上训练导致过拟合，本研究将模型适配拆分为三个连续过程，并严格区分公开病理数据预训练、目标域粗粒度适配和目标域细粒度精调。其核心思想是先学习跨数据集稳定的细胞形态与视觉语言对应关系，再逐步注入目标队列的染色风格、组织结构和细胞类别信息。
+
+\subsubsection{过程一：公开医学病理数据预训练。}
+第一阶段使用 MoNuSAC、CCRCC 和 CoNSeP 等公开医学病理数据集进行多类细胞预训练。与直接把所有数据的类别编号拼接在一起不同，本研究首先将不同数据集中的类别名称统一映射到细胞语义空间，并将类别名称作为文本提示输入 GLIP 的语言分支。图像编码器负责提取细胞的形态、纹理和局部组织背景，语言编码器则提供可迁移的类别语义；检测头通过区域--文本匹配学习细胞区域与类别短语之间的对应关系。这样做的目的不是让模型记忆某一个数据集的染色或类别编号，而是使其在不同标注体系之间学习较稳定的细胞外观表示，为后续目标域适配提供病理视觉先验。
+
+在实现上，过程一以 GLIP-L 的预训练参数作为基础初始化，并采用与后续目标域训练一致的检测框架和文本提示形式。公开数据预训练阶段主要承担两个作用：一是将自然图像中的开放词汇检测能力迁移到细胞和细胞核等医学目标；二是利用多个公开数据集的形态变化增加训练样本的覆盖范围，减弱模型对单一数据集染色风格和标注习惯的依赖。由于该阶段使用的是公开医学数据而非本研究队列的测试图块，因此不会直接泄漏目标测试图像的实例标注。
+
+\subsubsection{过程二：目标域粗粒度适配。}
+第二阶段在 NCC\_Cohort1 的目标域 WSI 上继续训练。我们从 7 例患者的 WSI 中提取 1,318 个图块，使用 Tumor 和 Stromal 两类相对可靠的粗粒度区域标签进行域内适配。此时不急于加入所有细粒度细胞类别，而是先让图像编码器和检测头适应本研究队列的 H\&E 染色、组织背景、肿瘤--间质结构及图块尺度。这样可以避免在细粒度标注尚不充分时，把类别遗漏或边界不确定性过早传播到整个模型。
+
+\subsubsection{过程三：目标域细粒度精调。}
+第三阶段从完整标注区域以重叠采样方式获得 938 个 $224\times224$ 图块，对 Tumor cell、Lymphocyte、Neutrophil、Eosinophil、Plasma Cell、Endothelial Cell、Fibroblast 和 Histiocyte 八类细胞进行精调；小于图块尺寸的区域采用黑色填充。另从测试数据中按相同策略选取 8 个图块用于检测性能评价。细粒度精调阶段使用高质量逐实例标注，重点优化类别判别、实例边界和密集细胞场景中的区域匹配关系。
+
+\begin{table}[htbp]
+  \centering
+  \caption{多类细胞检测渐进式训练结果}
+  \label{tab:lung_stage_training}
+  \scriptsize
+  \resizebox{0.98\textwidth}{!}{%
+  \begin{tabular}{p{0.14\textwidth}p{0.26\textwidth}p{0.29\textwidth}p{0.25\textwidth}}
+    \toprule
+    阶段或对照 & 训练数据与初始化 & 主要作用 & 结果表现 \\
+    \midrule
+    过程一：公开病理预训练
+    & MoNuSAC、CCRCC、CoNSeP；以 GLIP-L 预训练参数初始化
+    & 学习跨公开病理数据集的细胞形态、纹理和视觉--语言类别对应关系
+    & 为目标域适配提供公开医学视觉先验 \\
+    过程二：目标域粗粒度适配
+    & NCC\_Cohort1 的 1,318 个图块；Tumor 和 Stromal 两类标签
+    & 适应本研究队列的染色、组织背景和肿瘤--间质结构，减少细粒度噪声
+    & 为细粒度细胞精调提供目标域初始化 \\
+    过程三：目标域细粒度精调
+    & 938 个 $224\times224$ 图块；八类细胞逐实例标注
+    & 学习细胞类别、实例边界和密集场景下的区域匹配
+    & 作为后续定量比较的最佳渐进式训练结果 \\
+    无公开医学预训练对照
+    & 以通用 GLIP 参数初始化，在目标域训练集上训练，并在验证集上测试
+    & 去除公开医学数据预训练，测量通用 GLIP 直接适配病理数据的能力
+    & GLIP 对照七类平均 AP50 为 $53.07\pm2.60$ \\
+    Mask R-CNN 对照
+    & 使用相同目标域数据流程，但不使用视觉--语言预训练
+    & 检验性能提升是否来自渐进式视觉语言适配，而非单纯检测头
+    & 七类平均 AP50 为 $32.26\pm1.40$ \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+
+三阶段训练的效果由表~\ref{tab:lung_model_performance} 中的对照结果进一步体现。未经额外公开医学病理数据预训练的 GLIP 在七类非肿瘤细胞上的平均 AP50 为 $53.07\pm2.60$，而采用渐进式公开病理预训练、目标域粗粒度适配和细粒度精调后的模型达到 $66.14\pm0.58$，绝对提高 $13.07$ 个百分点，相对提升约 $24.6\%$。在相同任务下，Mask R-CNN 的七类平均 AP50 为 $32.26\pm1.40$，明显低于两种 GLIP 配置。尤其对于浆细胞等训练样本较少的类别，渐进式训练模型的 AP50 达到 $73.57\pm3.18$，而未额外预训练的 GLIP 对照仅为 $29.33\pm3.10$。这说明公开医学数据预训练首先提供了可迁移的细胞视觉语义，目标域粗粒度适配随后修正染色和组织背景差异，最后的高质量逐实例精调才将这些先验转化为目标队列中的细粒度检测能力。
+
+因此，过程一并不是可有可无的预热步骤，而是整个训练链路中负责建立医学视觉先验的基础环节。若直接从通用 GLIP 权重进入目标域细粒度训练，模型需要在有限的目标域实例上同时学习病理外观、类别语义和实例定位，容易造成小类别过拟合和跨类别混淆。表中的 GLIP 对照与渐进式模型之间的差异，正是对这一训练策略必要性的定量验证。
+
+\subsection{肿瘤周围细胞提取与空间密度}
+对存在残余肿瘤的 WSI，选取面积最大的肿瘤区域作为代表灶，并沿其轮廓提取周边图块；未检测到活性肿瘤时，则以最大间质区域为中心提取半径为 5 个图块的邻域。细胞检测结果除类别和置信度外，还记录细胞相对最近肿瘤边界点的水平、垂直偏移 $(V_x,V_y)$，仅保留置信度不低于 0.5 的检测目标。细胞到边界的欧氏距离为
+\begin{equation}
+d=\sqrt{V_x^2+V_y^2}.
+\end{equation}
+由于 $V_x$ 和 $V_y$ 均限制在 $500\,\mu\mathrm{m}$ 内，可测最大距离约为 $707\,\mu\mathrm{m}$。因此，本研究以 $50\,\mu\mathrm{m}$ 为步长，在 $50$--$700\,\mu\mathrm{m}$ 范围内建立累积径向区域。若肿瘤边界周长为 $P$，向外扩张距离为 $d$，则依据 Minkowski--Steiner 展开公式估计周边面积
+\begin{equation}
+A(d)=P\,d+\pi d^2,
+\end{equation}
+相应细胞密度为
+\begin{equation}
+\rho_c(d)=\frac{N_c(d)}{A(d)},
+\end{equation}
+其中 $N_c(d)$ 为类别 $c$ 在距离 $d$ 内的检测数。患者级密度由其全部切片对应密度取平均得到。嗜酸性粒细胞在研究队列中的检出频率过低，因此不进入后续生存分析；空间预后分析仅纳入 AI-RVT 大于 0 的残余肿瘤患者。
+
+\section{实验设计与模型评价}
+\subsection{区域分类与细胞检测性能}
+图 \ref{fig:lung_model_performance}A 显示，多尺度模型在肿瘤床、活性肿瘤、坏死和正常组织四类区域上均优于单尺度模型。六次独立实验中，平均 F1 从 $0.532\pm0.005$ 提升至 $0.784\pm0.002$，平均精确率从 $0.584\pm0.003$ 提升至 $0.866\pm0.003$，平均召回率从 $0.486\pm0.003$ 提升至 $0.746\pm0.005$；三项指标的相对提升分别为 47.2\%、48.2\% 和 53.3\%。坏死区域的 F1 从 0.426 提高到 0.792，说明大尺度组织上下文对治疗后结构判定尤为重要。
+
+多类细胞检测以相同训练流程下的 Mask R-CNN 和未经额外病理预训练的 GLIP 为对照。渐进式训练模型在七类非肿瘤细胞上的平均 AP50 为 $66.14\pm0.58$，高于 GLIP 对照的 $53.07\pm2.60$ 和 Mask R-CNN 的 $32.26\pm1.40$。其中浆细胞 AP50 达到 $73.57\pm3.18$，相较 GLIP 对照的 $29.33\pm3.10$ 提升明显；这说明公共病理数据预训练和域内粗粒度适配能够缓解小样本细胞类别的过拟合。
+
+\begin{table}[htbp]
+  \centering
+  \caption{区域分类与细胞检测总体性能}
+  \label{tab:lung_model_performance}
+  \small
+  \resizebox{0.98\textwidth}{!}{%
+  \begin{tabular}{llll}
+    \toprule
+    任务 & 方法 & 指标 & 结果（均值$\pm$标准差） \\
+    \midrule
+    区域分类 & 单尺度 & 平均 F1 / Precision / Recall & $0.532\pm0.005$ / $0.584\pm0.003$ / $0.486\pm0.003$ \\
+    区域分类 & 多尺度 & 平均 F1 / Precision / Recall & $0.784\pm0.002$ / $0.866\pm0.003$ / $0.746\pm0.005$ \\
+    细胞检测 & Mask R-CNN & 七类平均 AP50 & $32.26\pm1.40$ \\
+    细胞检测 & GLIP（无额外预训练） & 七类平均 AP50 & $53.07\pm2.60$ \\
+    细胞检测 & 渐进式训练模型 & 七类平均 AP50 & $66.14\pm0.58$ \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.78\textwidth]{figures/lung_image7_zh.png}
+  \caption{多中心研究设计}
+  \label{fig:lung_study_design}
+\end{figure}
+图~\ref{fig:lung_study_design} 中，NCC\_Cohort1 用于模型训练，SXCH 用于外部一致性验证，NCC\_Cohort2 与 SZCH 构成独立测试数据；预后分析进一步联合 NCC\_Cohort1。
+
+
+\begin{table}[htbp]
+  \centering
+  \caption{多中心队列构成}
+  \label{tab:lung_cohorts}
+  \small
+  \resizebox{0.98\textwidth}{!}{%
+  \begin{tabular}{llll}
+    \toprule
+    阶段 & 队列 & 数据规模 & 主要用途 \\
+    \midrule
+    模型训练 & NCC\_Cohort1 & 20 例，251 张 WSI & 多尺度区域分类与域内细胞建模 \\
+    外部验证 & SXCH & 28 例，192 张 WSI & 切片级、患者级 RVT 一致性 \\
+    独立测试 & NCC\_Cohort2、SZCH & 51 例、32 例 & 独立测试与空间免疫分析 \\
+    预后分析 & NCC\_Cohort1/2、SZCH & 103 例，其中 non-pCR 78 例 & DFS、OS 及联合风险分层 \\
+    细胞精调 & NCC\_Cohort1 标注区 & 938 个 $224\times224$ 图块 & 八类细胞检测与分类 \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+\subsection{基线临床病理特征}
+我们按照中心汇总了 71 例 NCC 患者（NCC\_Cohort1 与 NCC\_Cohort2）、28 例 SXCH 患者和 32 例 SZCH 患者的基线特征，见表 \ref{tab:lung_baseline}。三中心在性别、VIS-RVT、ypT、ypN 和 MPR 分布方面总体可比，年龄分布存在统计学差异（$p=0.031$）。因此，后续生存模型除考察 RVT 和空间免疫指标外，还将治疗后淋巴结状态 ypN 纳入校正。
+
+\begin{table}[htbp]
+  \centering
+  \caption{患者基线临床病理特征}
+  \label{tab:lung_baseline}
+  \scriptsize
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{lcccc}
+    \toprule
+    特征 & NCC（$N=71$） & SXCH（$N=28$） & SZCH（$N=32$） & $p$ 值 \\
+    \midrule
+    男性，$n$（\%） & 70（99\%） & 28（100\%） & 29（91\%） & 0.092 \\
+    年龄，中位数（Q1，Q3） & 60.00（55.00，65.00） & 63.50（60.50，66.00） & 64.50（59.50，68.50） & 0.031 \\
+    VIS-RVT，中位数（Q1，Q3） & 0.03（0.00，0.38） & 0.00（0.00，0.10） & 0.01（0.00，0.13） & 0.300 \\
+    \midrule
+    ypT 分期 & & & & 0.140 \\
+    \quad T0 & 26（37\%） & 13（46\%） & 8（25\%） & \\
+    \quad Tis & 1（1.4\%） & 0（0\%） & 0（0\%） & \\
+    \quad T1 & 25（35\%） & 11（39\%） & 20（63\%） & \\
+    \quad T2 & 13（18\%） & 3（11\%） & 3（9.4\%） & \\
+    \quad T3 & 6（8.5\%） & 1（3.6\%） & 0（0\%） & \\
+    \quad T4 & 0（0\%） & 0（0\%） & 1（3.1\%） & \\
+    \midrule
+    ypN 分期 & & & & 0.110 \\
+    \quad N0 & 37（52\%） & 23（82\%） & 20（63\%） & \\
+    \quad N1 & 19（27\%） & 3（11\%） & 7（22\%） & \\
+    \quad N2 & 15（21\%） & 2（7.1\%） & 5（16\%） & \\
+    \midrule
+    病理缓解 & & & & 0.300 \\
+    \quad MPR & 42（59\%） & 21（75\%） & 22（69\%） & \\
+    \quad non-MPR & 29（41\%） & 7（25\%） & 10（31\%） & \\
+    \bottomrule
+  \end{tabular}}
+  \vspace{0.3em}
+
+  \raggedright\footnotesize 注：分类变量以 $n$（\%）表示，连续变量以中位数（Q1，Q3）表示；根据变量类型采用 Fisher 精确检验、Kruskal--Wallis 秩和检验或 Pearson 卡方检验。
+\end{table}
+
+\subsection{研究目标}
+研究以 DFS 和 OS 为临床终点。RVT 同时以两种方式进入分析：一是采用 10\% 阈值区分 MPR 与 non-MPR，二是保留连续比例，以减少阈值二分造成的信息损失。组间生存差异采用 Kaplan--Meier 曲线和 log-rank 检验；DFS 使用标准 Cox 比例风险模型；由于 OS 事件数较少，OS 多变量分析采用 Firth 惩罚 Cox 回归，以降低小样本偏倚并提高风险比估计的稳定性。所有患者级 RVT 均由该患者全部可用切片的 RVT 百分比取算术平均得到。
+
+\section{多尺度数字病理分析方法}
+\subsection{图块生成和染色归一化}
+原始 WSI 统一重采样至 20 倍放大倍率，对应约 $0.5\,\mu\mathrm{m}/\mathrm{pixel}$。病理医师以闭合多边形标注肿瘤床、活性肿瘤、坏死和正常区域，程序将 WSI 划分为互不重叠的 $224\times224$ 像素图块。每个图块先转换为灰度图；若亮度范围低于完整动态范围的 35\%，则判定其主要为空白并剔除。对于其余图块，计算四类病理区域的面积占比，仅当某一类别覆盖超过 60\% 时才赋予相应标签，否则舍弃，以减少边界混合图块引入的监督噪声。该流程共获得 975,359 个训练图块。
+
+跨中心染色差异采用 Vahadane 方法进行归一化。该方法借助非负矩阵分解将图像表示为染色浓度矩阵与颜色基矩阵，再把目标切片的颜色基对齐至参考切片并重建图像。与简单颜色直方图匹配相比，这一过程更有利于保留细胞核和间质纹理，同时降低不同中心制片流程造成的颜色偏移。
+
+\subsection{模拟病理阅片的多尺度分类器}
+病理医师通常先在器官和组织尺度定位病变，再在细胞尺度确认活性肿瘤。若感受野不足，模型难以像医师一样综合更大范围内的组织结构与细胞分布信息，从而对局部区域的细胞类型与病理状态作出可靠判断。为模拟这种“放大--缩小”的阅片过程，本研究以最小尺度图块为中心逐级扩展感受野，生成空间对齐的大尺度训练样本。不同尺度分别训练基于 ResNet-101 的分类器，并通过类别权重提高稀少肿瘤图块的采样贡献。优化器采用 SGD，基础学习率为 $10^{-4}$，批大小为 4，损失函数为多类别交叉熵。
+\begin{table}[htbp]
+  \centering
+  \caption{感受野消融结果}
+  \label{tab:lung_receptive_field_ablation}
+  \small
+  \resizebox{\textwidth}{!}{%
+  \begin{tabular}{llllll}
+    \toprule
+    设置 & 感受野/尺度 & 融合策略 & F1（\%）$\uparrow$ & 精确度（\%）$\uparrow$ & 召回率（\%）$\uparrow$ \\
+    \midrule
+    感受野不足（单尺度/小上下文） & 单尺度图块 & 无多尺度融合 & 53.2$\pm$0.5 & 58.4$\pm$0.3 & 48.6$\pm$0.3 \\
+    感受野充分（多尺度/大上下文） & $676\times676$ pixel & 多尺度融合 & 78.4$\pm$0.2 & 86.6$\pm$0.3 & 74.6$\pm$0.5 \\
+    \bottomrule
+  \end{tabular}%
+  }
+\end{table}
+
+
+
+表~\ref{tab:lung_receptive_field_ablation} 比较了单尺度小上下文与多尺度大上下文两种区域分类设置。单尺度模型的平均 F1、精确度和召回率分别为 53.2\% 、58.4\% 和 48.6\%；引入多尺度上下文与融合策略后，三项指标分别提升至 78.4\% 、86.6\% 和 74.6\%。相对于单尺度设置，F1、精确度和召回率的相对提升分别为 47.2\%、48.2\% 和 53.3\%。这表明，单个局部图块提供的组织上下文不足以稳定区分肿瘤床、活性肿瘤、坏死和正常组织，而扩大感受野并进行尺度融合能够利用更完整的组织结构信息，从而同时改善分类的正确性与覆盖能力。
+
+推理时，各尺度模型独立输出四类区域得分，再依据对应尺度中病理区域的面积进行加权融合。设第 $s$ 张切片中活性肿瘤、治疗后间质性肿瘤床和坏死区域面积分别为 $A^{(s)}_{\mathrm{tumor}}$、$A^{(s)}_{\mathrm{bed}}$ 和 $A^{(s)}_{\mathrm{necrosis}}$，则切片级 RVT 表示为
+\begin{equation}
+R_s=\frac{A^{(s)}_{\mathrm{tumor}}}
+{A^{(s)}_{\mathrm{tumor}}+A^{(s)}_{\mathrm{bed}}+A^{(s)}_{\mathrm{necrosis}}+\epsilon}.
+\end{equation}
+设患者共有 $S$ 张可用切片，其患者级 AI-RVT 为
+\begin{equation}
+R_{\mathrm{patient}}=\frac{1}{S}\sum_{s=1}^{S}R_s.
+\end{equation}
+这一连续值既可按 10\% 阈值转换为 MPR 标签，也可直接进入 Cox 模型。
+\subsubsection{实验流程总结}
+以上两节所述的图块生成与染色归一化、多尺度分类与面积加权融合流程可以整合绘制为一个整体流程图，即图~\ref{fig:lung_pipeline}。以“病理阅片逻辑”为主线，自左向右依次呈现多尺度阅片示意、WSI 图块化与尺度对齐、各尺度分类器训练与推理，以及基于面积占比的加权融合与 AI-RVT 计算。该流程将 WSI 的关键处理步骤进行智能化、自动化串联，可在减少人工逐张阅片负担的同时稳定输出可用于统计分析的量化结果。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/lung_image8_zh.png}
+  \caption{多尺度 WSI 分析与细胞检测流程}
+  \label{fig:lung_pipeline}
+\end{figure}
+图~\ref{fig:lung_pipeline} 中，（A--D）分别表示病理医师的多尺度阅片、WSI 图块化、尺度对齐训练及面积加权融合；（E）表示 GLIP 细胞检测器由公共多类核数据预训练、域内二分类预训练和八类细胞精调构成的渐进式学习流程。数据集名称、类别提示词和模型名称作为实际训练输入保留英文。
+
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/lung_final_fig2.png}
+  \caption{区域分类与细胞检测性能}
+  \label{fig:lung_model_performance}
+\end{figure}
+图~\ref{fig:lung_model_performance} 中，（A）单尺度和多尺度模型在四类区域上的 F1、精确率与召回率；（B）WSI 区域预测与病理标注对比；（C）Mask R-CNN、未额外预训练的 GLIP 与渐进式训练模型在七类肿瘤周围细胞上的 AP50；（D）代表性细胞检测结果。
+
+
+\subsection{AI-RVT 与 VIS-RVT 的一致性}
+在 SXCH 外部验证队列中，AI-RVT 与 VIS-RVT 的切片级组内相关系数（intraclass correlation coefficient, ICC）为 0.881（$p=1.08\times10^{-64}$），患者级 ICC 为 0.861（$p=6.03\times10^{-10}$）。在 NCC\_Cohort2 与 SZCH 组成的独立测试数据中，切片级 ICC 为 0.861（$p=6.96\times10^{-273}$），患者级 ICC 进一步达到 0.931（$p=1.05\times10^{-38}$）。患者级聚合降低了单张切片取材差异的影响，因而获得了更稳定的一致性。
+
+采用 10\% RVT 阈值划分 MPR 和 non-MPR 时，AI-RVT 与 VIS-RVT 在 84 例患者中的一致率为 95.2\%（80/84）。四例不一致病例中，t1、t3 和 t4 均位于 10\% 阈值附近，主要反映边界病例的连续值差异；t2 的 VIS-RVT 为 22\%，AI-RVT 为 8.56\%，高倍图像显示活性肿瘤与间质广泛交织，人工视觉评估可能因复杂间质结构而高估活性肿瘤比例。该结果同时说明，连续 RVT 比单一阈值标签保留了更多病理信息。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth,height=0.76\textheight,keepaspectratio]{figures/lung_image2_zh.png}
+  \caption{AI-RVT 与 VIS-RVT 一致性}
+  \label{fig:lung_concordance}
+\end{figure}
+图~\ref{fig:lung_concordance} 中，（A、B）SXCH 队列的切片级和患者级 ICC；（C、D）病理医师标注与 AI 分割图；（E、F）独立测试数据的切片级和患者级 ICC；（G）10\% 阈值下的 MPR 一致性；（H）差异病例 t2 的高倍 H\&E 图像。
+
+
+\section{预后分析结果}
+\subsection{阈值化 MPR 分层}
+在 103 例总体预后队列中，VIS-RVT 和 AI-RVT 定义的 MPR 均能显著区分 DFS，log-rank 检验的 $p$ 值分别为 0.0011 和 0.00095。校正 ypN 后，VIS-RVT 定义的 non-MPR 风险比为 2.6（95\% CI：1.09--6.20，$p=0.031$），AI-RVT 定义的 non-MPR 风险比为 2.7（95\% CI：1.18--6.40，$p=0.019$）。两种方法对 OS 的分层均未达到显著水平，其中 VIS-RVT 的 $p=0.33$，AI-RVT 呈非显著趋势（$p=0.084$）。
+
+在 78 例 non-pCR 亚组中，VIS-RVT 和 AI-RVT 定义的 MPR 仍能区分 DFS，$p$ 值分别为 0.023 和 0.021。多变量模型中，VIS-RVT 仅呈边界显著（HR=2.3，$p=0.061$），而 AI-RVT 定义的 non-MPR 仍与较短 DFS 独立相关（HR=2.5，95\% CI：1.04--6.0，$p=0.040$）。这一差异表明，自动化区域量化在残余肿瘤患者中可能比阈值化人工估计具有更稳定的风险识别能力。
+
+\subsection{连续 RVT 分析}
+将 RVT 作为连续变量可避免 10\% 阈值造成的信息损失。在总体队列中，连续 VIS-RVT 与 AI-RVT 的 DFS 风险比分别为 8.4（$p=0.009$）和 8.2（$p=0.022$）；在 non-pCR 亚组中，两者的风险比分别为 7.2（$p=0.018$）和 7.0（$p=0.037$）。二者效应方向和量级高度一致，但均未对 OS 显示稳定关联。这表明 RVT 更直接反映复发风险，而 OS 可能同时受到后续治疗、非肿瘤死亡和治疗后免疫生态等因素影响。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.91\textwidth,height=0.76\textheight,keepaspectratio]{figures/lung_final_fig4.png}
+  \caption{RVT 与无病生存期的关联}
+  \label{fig:lung_rvt_survival}
+\end{figure}
+图~\ref{fig:lung_rvt_survival} 中，（A、B）总体队列按 MPR 分层的 Kaplan--Meier 曲线；（C、D）总体队列多变量 Cox 模型；（E、F）non-pCR 亚组的 MPR 分层；（G、H）non-pCR 亚组多变量模型；（I、J）总体队列连续 RVT 模型；（K、L）non-pCR 亚组连续 RVT 模型。
+
+
+\section{空间免疫分析结果}
+\subsection{距离依赖的单一细胞效应}
+在具有残余肿瘤的 NCC 和 SZCH 患者中，$50$--$700\,\mu\mathrm{m}$ 各距离范围的细胞组成总体一致：成纤维细胞最丰富，其次为淋巴细胞；浆细胞、组织细胞、中性粒细胞和内皮细胞处于中等水平；嗜酸性粒细胞因数量过少而不纳入预后分析。
+
+空间 Cox 分析显示，不同细胞的预后作用具有明确的距离依赖性。对于 DFS，肿瘤边界 $50\,\mu\mathrm{m}$ 内高中性粒细胞密度与较差 DFS 相关（log-rank $p=0.040$），同一区域高内皮细胞密度也与较差 DFS 相关（$p=0.014$）。同时纳入 ypN 和 AI-RVT 后，内皮细胞密度仍是独立复发风险因素（HR=2.9，95\% CI：1.07--7.8，$p=0.036$），而中性粒细胞对 DFS 不再独立显著。
+
+OS 呈现另一组互补信号。$50\,\mu\mathrm{m}$ 内高中性粒细胞密度与较差 OS 相关（log-rank $p=0.0089$），$700\,\mu\mathrm{m}$ 范围内高淋巴细胞密度则与更好 OS 相关（$p=0.032$）。在校正 ypN 和 AI-RVT 的 Firth Cox 模型中，远端淋巴细胞仍是保护因素（HR=0.15，95\% CI：0.015--0.79，$p=0.024$），近端中性粒细胞则是风险因素（HR=7.5，95\% CI：1.5--76，$p=0.012$）。这说明紧邻肿瘤的中性粒细胞富集和更广空间内的淋巴细胞浸润分别刻画局部不利炎症生态与整体抗肿瘤免疫能力。
+
+\begin{table}[htbp]
+  \centering
+  \caption{空间免疫特征的预后效应}
+  \label{tab:lung_spatial_effects}
+  \small
+  \resizebox{0.98\textwidth}{!}{%
+  \begin{tabular}{lllll}
+    \toprule
+    终点 & 空间特征 & 单因素 $p$ 值 & 多变量 HR（95\% CI） & 多变量 $p$ 值 \\
+    \midrule
+    DFS & 中性粒细胞，$50\,\mu\mathrm{m}$ & 0.040 & 1.2（0.47--3.3） & 0.663 \\
+    DFS & 内皮细胞，$50\,\mu\mathrm{m}$ & 0.014 & 2.9（1.07--7.8） & 0.036 \\
+    OS & 中性粒细胞，$50\,\mu\mathrm{m}$ & 0.0089 & 7.5（1.5--76） & 0.012 \\
+    OS & 淋巴细胞，$700\,\mu\mathrm{m}$ & 0.032 & 0.15（0.015--0.79） & 0.024 \\
+    \bottomrule
+  \end{tabular}}
+\end{table}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.83\textwidth,height=0.76\textheight,keepaspectratio]{figures/lung_final_fig5.png}
+  \caption{肿瘤微环境空间特征与生存结局}
+  \label{fig:lung_immune_spatial}
+\end{figure}
+图~\ref{fig:lung_immune_spatial} 中，（A）NCC 与 SZCH 残余肿瘤患者在 $50$--$700\,\mu\mathrm{m}$ 范围内的细胞累积；（B--D）DFS 的距离效应、Kaplan--Meier 曲线和多变量模型；（E--G）OS 的距离效应、Kaplan--Meier 曲线及 Firth 校正模型。
+
+
+\subsection{淋巴细胞--中性粒细胞联合表型}
+根据 $700\,\mu\mathrm{m}$ 内淋巴细胞密度和 $50\,\mu\mathrm{m}$ 内中性粒细胞密度，将残余肿瘤患者划分为四种 Lym+Neu 空间免疫表型。联合表型能够区分 DFS（log-rank $p=0.026$）：低淋巴细胞/高中性粒细胞组的 DFS 最差，高淋巴细胞/低中性粒细胞组最好；但该 DFS 关联在多变量模型中未保持独立显著。
+
+相比之下，联合表型对 OS 的区分更强（log-rank $p=0.0092$）。在校正 ypN 和 AI-RVT 的 Firth Cox 模型中，低淋巴细胞/高中性粒细胞表型相对于高淋巴细胞/低中性粒细胞表型仍与不良 OS 独立相关，HR 为 31（95\% CI：3.2--402，$p=0.0011$）。较宽的置信区间反映 OS 事件数有限，但效应方向与单一细胞分析完全一致：近端中性粒细胞富集与远端淋巴细胞缺失共同构成最不利的治疗后免疫结构。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.92\textwidth]{figures/lung_final_fig6.png}
+  \caption{淋巴细胞--中性粒细胞联合表型与生存结局}
+  \label{fig:lung_combined}
+\end{figure}
+图~\ref{fig:lung_combined} 中，（A）由 $700\,\mu\mathrm{m}$ 淋巴细胞和 $50\,\mu\mathrm{m}$ 中性粒细胞定义的四种代表性 H\&E 形态；（B、C）联合表型的 DFS 曲线和多变量 Cox 模型；（D、E）OS 曲线和 Firth 校正多变量 Cox 模型。
+
+
+
+\section{数据口径与临床统计补充}
+\subsection{肺癌数字病理数据口径}
+本章使用的肺鳞癌数字病理数据与前几章的 patch 级核检测分割数据不同。该工作更接近临床队列研究，数据单位通常是患者、切片或全切片图像。其重点并不是单张图像中的检测精度，而是 AI 量化指标与病理缓解程度、免疫细胞密度、无病生存和总生存之间的关系。因此，该章实验需要同时考虑图像处理流程和临床统计流程。
+
+这类数据的特殊性在于，模型输出并不是最终结论，而是临床指标构建的中间层。例如，残余可存活肿瘤比例需要由组织区域识别结果推导，肿瘤周围免疫细胞密度需要由细胞检测结果和空间边界关系共同决定。相比检测或分割 benchmark，这类研究更加重视量化指标的可解释性、稳定性和临床相关性。
+
+\subsection{临床流程的关键复现环节}
+第五章采用独立的 Lung-AI 图像资源，正文已分别说明研究队列、区域分类、AI-RVT 与 VIS-RVT 一致性、连续 RVT 风险分析以及肿瘤周围免疫细胞联合分层。补充内容不再重复插图，而是强调复现时不可省略的三个环节：第一，训练、验证和预后测试患者必须按原研究设计隔离；第二，RVT 需要先在切片级进行面积加权，再聚合到患者级；第三，免疫细胞密度必须记录相对于肿瘤边界的距离范围，否则 $50\,\mu\mathrm{m}$ 和 $700\,\mu\mathrm{m}$ 的统计量不可比较。
+
+\subsection{临床统计评价指标}
+本章涉及的临床统计指标包括组间差异、相关性分析、ICC 一致性、风险比以及生存曲线等。这些指标与检测和分割指标不同，其目标不是评价单张图像预测结果，而是判断 AI 量化指标是否与病理评估和患者结局存在稳定关系。对于这类实验，模型性能的最终价值体现在能否形成可解释的临床分层，而不是单纯在图像层面取得高分。
+
+\section{讨论}
+本研究将治疗后 LUSC 的病理分析拆分为三个相互衔接且可解释的层次。第一层通过多尺度区域分类量化 RVT，解决人工估计工作量大和重复性不足的问题；第二层利用视觉语言基础模型统一异构细胞标签空间，在有限域内标注下识别七类肿瘤周围非肿瘤细胞；第三层将细胞位置转换为相对肿瘤边界的空间密度，以解释具有相似 RVT 患者之间仍然存在的预后差异。
+
+AI-RVT 在外部验证和独立测试数据中均与 VIS-RVT 高度一致，患者级 ICC 达到 0.861--0.931，10\% 阈值下的一致率为 95.2\%。更重要的是，AI-RVT 的价值不仅是复现病理医师的读数。在 non-pCR 人群中，AI-RVT 定义的 non-MPR 在校正 ypN 后仍能独立预测 DFS，而 VIS-RVT 仅达到边界显著。连续 RVT 的风险效应又明显强于简单的 MPR 二分，说明治疗反应本质上是连续谱，强制阈值化会损失临床相关信息。
+
+RVT 对 DFS 的稳定作用和空间免疫特征对 OS 的补充作用具有生物学合理性。RVT 更直接反映新辅助治疗后的局部肿瘤清除程度，因此首先关联复发；OS 则受到宿主免疫状态、后续治疗及全身疾病过程的共同影响。近端中性粒细胞富集可能对应免疫抑制、组织损伤和促肿瘤炎症，远端淋巴细胞丰富则更可能反映广泛而持续的抗肿瘤免疫。将两者组合后，低淋巴细胞/高中性粒细胞表型在校正 AI-RVT 与 ypN 后仍显示最高 OS 风险，说明空间免疫表型能够提供超越残余肿瘤负荷的互补信息。
+
+本研究仍存在若干限制。首先，研究为回顾性设计，OS 事件数较少，尽管采用 Firth 校正降低了估计偏倚，HR=31 的置信区间仍较宽，需要更大规模前瞻性多中心队列验证。其次，每张 WSI 以最大肿瘤灶代表周边微环境，尚未完全覆盖多灶和区域异质性。再次，细胞类别依据 H\&E 形态预测，不能替代免疫组化或空间组学对功能亚型的鉴定。最后，当前方法主要计算到肿瘤边界的径向距离，后续可进一步引入细胞邻接图、聚集结构和三级淋巴结构等高阶空间特征。
+
+\section{本章创新点}
+本章的创新主要体现在以下三个方面。
+
+第一，提出模拟病理医师“器官--组织--细胞”阅片过程的多尺度 WSI 模型，通过空间对齐的感受野扩展和面积加权融合生成连续 AI-RVT，在外部与独立数据中实现稳定的患者级一致性。
+
+第二，提出面向异构病理细胞数据的渐进式视觉语言预训练策略，将公共多类核数据、目标域肿瘤/间质粗标注及少量八类精细标注依次用于域适配，在相同流程下显著优于 Mask R-CNN 和未经额外预训练的 GLIP。
+
+第三，建立以肿瘤边界为参照的 $50$--$700\,\mu\mathrm{m}$ 空间免疫量化方法，发现近端中性粒细胞和远端淋巴细胞具有方向相反的 OS 效应，并构建能够在校正 AI-RVT 与 ypN 后继续分层 OS 的 Lym+Neu 联合表型。
+
+\section{本章小结}
+本章围绕肺鳞癌新辅助免疫化疗后的疗效与预后评估，形成了“多尺度区域识别--连续 AI-RVT--多类细胞检测--空间密度建模--联合生存分析”的完整技术链。终稿结果表明，AI-RVT 能够高一致性复现人工 RVT，并对总体及 non-pCR 人群的 DFS 提供稳定信息；空间免疫分析进一步揭示 $50\,\mu\mathrm{m}$ 近端中性粒细胞的风险作用和 $700\,\mu\mathrm{m}$ 远端淋巴细胞的保护作用。二者构成的低淋巴细胞/高中性粒细胞表型识别出残余肿瘤患者中 OS 最差的亚群，从而把自动病理反应评估扩展为可解释的术后风险分层框架。
